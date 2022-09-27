@@ -1,0 +1,208 @@
+Today's Topics
+
+Revision
+Hashing algorithm
+Map i/f & implementation classes
+New Features : Java 8 onwards
+Java 8 Date/Time Handling API
+
+
+1.Revise Sets overview
+(refer to diagram : "Regarding Sets.png")
+1.1 What does each of below set imple. class prepresent ?
+HashSet : un ordered n un sorted Set --hashing algo (hashCode n equals)
+LinkedHashSet : extends HashSet --Ordered (DLL) BUT un sorted --(hashCode n equals)
+TreeSet : un ordered , sorted set
+
+
+1.2 Look at these TreeSet<E> Ctors n specify whether it will use Natural Ordering or Custom Ordering ?
+Suppose it's TreeSet<Customer>
+
+
+1. TreeSet() : N.O ---empty set -- add/addAll -- JVM invokes Customer's  compareTo (i/f : Comparable)
+2. TreeSet(Collection<E> collection) : N.O ---populated set from AL/LL/Vector/HS/LHS/TS --JVM invokes Customer's  compareTo (i/f : Comparable)
+3. TreeSet(Comparator<E> comp) :  C.O --  empty set -- add/addAll -- JVM invokes --comp's compare method
+
+
+3 different Ways to supply Comparator ???
+1. create a seperate cls imple Comparator
+OR
+2. ano inner cls imple Comparator
+OR
+3. lambda expr
+-------------------------------------
+
+
+
+2. HashSet & hashing algorithm
+HS<String> 
+Can it detect the dups ? 
+
+Create an Employee class : id(string : PK) , name (string) , salary (double)
++ ctor n toString
+
+HS<Emp> 
+Is it detecting any dups ? NO
+
+1. override equals --still not detecting the dups.
+NOt even calling equals method
+
+
+Any Hashing based D.S(data structure) MUST follow a contract .
+
+What is hashing ?
+Hashing means using some function or algorithm to map object data(of variable length) to some representative integer value.
+
+What is the contract ? Contract exists between equals n hashCode methods
+Contract --
+Mandatory : Equal objects MUST produce SAME hashcode
+eg : If e1.equals(e2) --true , e1.hashCode()=e2.hashCode()
+
+Obs : If u follow just the mandatory part of the contract , HS will definitely detect the dups BUT does NOT guarantee const time perf.(O(n))
+
+
+Optional BUT reco.
+Un equals objects SHOULD produce distinct hashcode , for guaranteeing  const time perf.(O(1))
+
+
+
+Object class API 
+public boolean equals (Object o)
+public int hashCode()
+
+
+Contract : 
+Mandatory part : Equal objects MUST produce SAME hashcode.(sufficient to detect dups!)
+i.e in case of Emp : PK : emp id
+if e1.equals(e2) -- true , e1.hashCode() = e2.hashCode()
+
+
+Optional Part : Un equal objects SHOULD produce DIFFERENT hashcodes (for ensuring constant time performance O(1))
+i.e in case of Emp : PK : emp id
+if e1.equals(e2) -- false , e1.hashCode() != e2.hashCode()
+
+
+How to implement the both parts of the contract ?
+1. Identify PK -- override : equals
+2. Using SAME fields (PK members) : override hashCode
+
+
+
+
+
+Hashing algo. internals
+Draw the memory diagram n understand it completely .
+
+
+Objective ( lab work ): Emp : PK : composite PK
+id (string) n deptId (int) n dob(Date/LocalDate)
+Emps are same iff : id n deptId n dob is same
+Add these emps in a HashSet . Ensure no dups + O(1)
+Steps 
+1.override equals -- id deptId dob
+2. override hashCode -- using SAME fields --- reco to use prime no 
+
+
+Lab work : Sort the employees in a set  as per salary.
+Steps 
+1. Populated HS (from earlier work) -- un ordered n un sorted 
+2. TreeSet(comp) --ano inner class -- empty TS
+ts.addAll(hs); --- JVM invokes --comp's compare
+
+---------------------------------------
+3. Enter Maps
+
+Maps Overview
+Refer to Map API
+
+Objective : Save bank account details in a suitable D.S , for ensuring no dups , const time perf for all CRUD ops. 
+
+HashMap<K,V>
+
+
+BankAccount : acctNo(int) , customer name , type(enum) , creationDate(java.time.LocalDate) , balance(double)
+PK : acct no
+K : Integer
+
+V : BankAccount
+
+HashMap<Integer,BankAccount>
+
+
+Will be solved later...
+BankAccount : AccountPK acctPk,  customer name , type(enum) , creationDate(java.time.LocalDate) , balance(double)
+PK : acct no n branch code
+K : Custom Key class --- eg : AccountPK --acctNo(int) , branchCode(IFSC : string) 
+What all will u add in the custom key class ?
+ctor , toString + contract --- hashCode n equals + reco to imple : Comparable i/f --compareTo
+
+V : BankAccount
+
+HashMap<AccoutPK,BankAccount>
+
+
+
+3.1Store a/c details in a suitable map to ensure const time performance for : put/get/remove...
+What will the type of the map ? : HashMap<K,V>
+K : Integer
+V : BankAccount
+
+
+3.2  Create a populated map with sample data.
+
+----------------Pending-----------------
+
+3.3 Create A/C
+
+3.4 Display details of all accts
+
+3.6  Get A/C summary
+i/p : acct number
+
+3.7 Funds Transfer
+i/p : src a/c no  dest a/c no , amt
+
+3.8 Close A/C
+
+3.9 Display a/c holder's name of the specified type of the account. 
+
+3.10 Display balance of a/cs created between specific dates 
+----------------------------
+
+4. Java 8 Date/Time related APIs
+Java 8 New Features 
+java.time : new package is introduced
+LocalDate : Date (immutable)(yr-mon-day)  : inherently thrd safe.
+API 
+1. public static LocalDate now()
+Obtains the current date from the system clock in the default time-zone.
+eg : 
+LocalTime : Time (immutable)(hr-min-sec)  : inherently thrd safe.
+LocalDateTime : Date n Time :  inherently thrd safe.
+eg : sop("curnt date "+now());
+2. public static LocalDate of(int year,int month,int dayOfMonth)
+Obtains an instance of LocalDate from a year, month and day.
+eg : ?????
+3. public static LocalDate parse(CharSequence text)
+Obtains an instance of LocalDate from a text string such as 2007-12-03.
+eg : LocalDate dt=LocalDate.parse(sc.next());//0 based dates
+4. Methods :
+isBefore,isAfter,isEqual
+3. Can you change default Date format ? : YES
+
+6. Computing Age
+-------------------------------
+
+
+Example of strings having same hashcode
+Aa BB
+Ba CB 
+Ca DB
+Da EB
+BBBB AaBB AaAa BBAa
+FB Ea
+
+For more understanding , do refer to :
+1. https://www.scientecheasy.com/2020/11/internal-working-of-hashmap-in-java.html/
+2. https://dzone.com/articles/java8-hashmap-implementation-and-performance
+3. https://www.youtube.com/watch?v=c3RVW3KGIIE

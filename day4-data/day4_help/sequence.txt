@@ -1,0 +1,97 @@
+Today's topics
+Revise Array of references
+Enter Inheritance.
+Enter polymorphism
+Revise returning of reference
+
+Revision
+1. Have you solved Day 3 assignment ? equality of points  (3.3)
+refer to whiteboard1
+
+2. Have you solved assignment ? (3.5 , 3.6 , 3.7)
+refer to whiteboard2
+refer to whiteboard1
+
+3. What will happen ? : lab work !
+int value=5;
+Point2D[] points=new Point2D[3];
+for(Point2D p : points) {
+ p=new Point2D(value,value+10);
+ value++;
+}
+//after loop is over : array : [null,null,null] , GC : 3
+for(Point2D p : points)
+ sop(p.show());//NPExc
+
+4. Dynamic initialization of array
+int[] ints=/*new int[]*/ {10,20,30,40,50}; //1 
+mem pic : refer to whiteboard1
+
+5. Solve question from whiteboard1
+--------------------------------------------
+Enter Inheritance 
+refer to "readme inheritance.txt" from today's help.
+Person-Student-Faculty scenarion (constr invocation in inheritance hierarchy)
+
+
+What is inheritance ?
+Important part of OOP 
+Represents IS A relationship
+Higher hierarchy : super class
+lower hierarchy :sub class
+key word : extends
+eg : class Emp extends Object{....}
+class Mgr extends Emp {...}
+class SalesMgr extends Mgr {...}
+Universal super class : java.lang.Object
+
+Why : Reduces redundancy , increases re usability
+Types : single , multilevel  ,hierarchial , multiple (not supported) : ambiguity
+
+constr invocation in inheritance hierarchy : refer to diag.
+
+How to display details of student n faculty ?
+
+
+super keyword
+super keyword usages
+1. To invoke super cls constr (eg : super(fn,ln))
+2. To access super cls's accessible members (eg : super.toString())
+
+Important statements
+Sub class IS A super class + something more(addtional data members + methods) + something modofied(behaviour : methods : method overriding)
+
+
+Enter polymorphism : refer to readme inheritance poly.
+Refer to method overloading vs method overriding
+Identify the rules.
+Examples of method overloading : print / println methods
+
+Example of Method overriding
+Java Annotations
+eg : @Override annotation
+
+java.lang.Object : universal super class of all java classes
+public String toString() : rets F.Q cls Name @ hashcode
+What's the need of overriding toString : to replace hashCode returning version by actual object details
+
+
+1.  Upcasting
+With simple example :  Person , Student Faculty
+
+
+
+
+2. Event Organizer app
+sop("enter event capacity");
+Person[] participants=new Person[sc.nextInt()];//50
+int counter=0;
+Menu :
+1 : Register Student
+//after chking boundary condition
+sop("Enter student dtls ");
+participants[counter++]=new Student(......);//javac err or no javac err : up casting
+
+2. : Register Faculty
+3. Display participant details
+10. : Exit

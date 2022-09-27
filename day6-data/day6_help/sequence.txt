@@ -1,0 +1,162 @@
+Revise 
+Important highlights : upcasting , downcasting , run time polymorphism
+Abstraction
+Enter complete abstraction : interfaces
+Enter Exception Handling
+
+Revision
+Fruit <---Apple,Orange,Mango<---Alphonso
+Suppose taste() exists in a Fruit class , it's overridden in all sub classes
+Suppose toString() is overridden  in Fruit class , also in all sub classes
+
+
+Solve
+1. What will happen ?
+Fruit f=new Mango();// up casting
+f.taste();// JVM : invokes Mango's taste()
+sop(f);//JVM : invokes Mango's toString
+
+f=new Orange(...);
+f.taste();
+sop(f);
+
+
+
+Solve
+Suppose : juicyPulp() is an additional method on Alphonso 
+
+2. Fruit f=new Alphonso();//no javac err : up casting
+f.juicyPulp();//javac err : since javac resolves : type of the ref --searches for the method in Fruit class
+
+//If error , any soln?
+((Alphonso)f).juicyPulp();//no javac err , legal casting-- no run time err : o/p
+
+
+f=new Orange(...);//no err , Alphonos : GC
+((Alphonso)f).juicyPulp();//no javac err, illegal casting --> java.lang.ClassCastExc : Orange can't be cast into Alphonso
+
+
+Is there any guard or any way to perform RTTI(run time type info) checking ? 
+i.e How to avoid class cast exc : instanceof keyword => comparison operator @ run time
+
+
+f=new Orange(...);//no err , Alphonso : GC
+if(f instanceof Alphonso)
+((Alphonso)f).juicyPulp();//no javac err, illegal casting --> java.lang.ClassCastExc : Orange can't be cast into Alphonso
+else 
+sop("It's not an Alphonso");
+
+Important : 
+When will you need to apply downcasting?
+In indirect referencing , i.e when super class ref ---> sub class instance AND it's calling sub class spcific func.
+
+Any probable run time error ?? :  java.lang.ClassCastException
+
+Before down casting :  instanceof checking
+
+Answer this
+
+eg ---Object <----Emp <---Mgr <---SalesMgr , HRMgr
+Object <---- Emp <--- Worker <--- TempWorker
+
+What will be o/p ?
+Emp e =new Mgr(...);
+e instanceof Mgr - true 
+e instanceof SalesMgr  - false
+e instanceof Worker - false
+e instanceof HRMgr  - false
+e instanceof Emp - true
+e instanceof TempWorker -false 
+e instanceof Object - true
+e=null;
+e instanceof Emp/Object/Mgr  -false
+
+
+Refer to Abstraction
+
+Does encapsulation help to achieve Abstraction ? YES
+
+When do u add abstract methods? : Any time you want to add a common func. in the super class AND you don't have any imple. details 
+eg : area() in BoundedShape
+
+Where  do you add them ? super class
+
+If u add abstract method/s what about the class ? : Class MUST be declared as abstract class
+
+
+Can abstract class be instaniated? NO
+refer to emp hierarchy
+
+Emp e = new SalesMgr(......);// no javac err 
+e=new Mgr(....);//javac err : since Mgr is abstract class
+e=new TempWorker(....);// no javac err 
+e=new Worker(...);//javac err : since Worker is abstract class
+
+
+Can abstract class contain concrete methods ? YES
+
+Can abstract class contain a parameterized ctor ? YES
+Will it be used for : creating instance of concrete subclass 
+
+Can you declare abstract class with full concrete(=non abstract) func : YES
+eg :
+public abstract class A
+{
+ // no abstract method 
+}
+
+What will happen ?
+public abstract final class A {....} ---NO
+
+
+final keyword
+--------------------------------------------------------------------------------------
+
+
+Enter interfaces
+Refer to "About Interfaces" readme.
+Refer to whiteboard(day6-data\day6_help\interfaces_help\whiteboard)
+
+Objectives
+0. Create different type of Printers(ConsolePrinter, FilePrinter ,NetworkPrinter) n access it's common functionality n specific functionality in a single for-each loop.
+
+
+1. Why Java does not allow multiple inheritance through classes ?
+Ambiguity !
+
+What will happen with i/fs ?
+Demo : Create a class implementing multiple i/fs .
+Will you face ambiguity issue with extact duplicate behaviour ? : NO
+(since all u are inheriting is the abstract method declaration n NOT the method def.)
+
+Same Method names  with different signature : NO ambiguity, Imple class will have to implement 2 distinct methods 
+
+Same Method names  same signature n different ret type : causes ambiguity
+
+2. Demo : Create a class implementing multiple i/fs .
+
+Will you face ambiguity issue with duplicate data members ? YES
+How to resolve : i/fName.dataMemberName
+
+3. Demo : 1 i/f extending multiple super i/fs , n then write imple class
+In order to create concrete imple class : MUST imple all inherited abstract behaviour.
+
+4. Marker i/f : Empty (Tag i/f) i/f --NO data members n no methods
+eg : Serializable , Cloneable
+
+5. Functional i/f : i/f containing single abstract method (SAM)
+Java 8 added annotation : @FunctionalInterface : i/f level annotation
+
+-----------------------
+
+Enter Exception Handling : 
+What is Exception ? : run time error , detected by JVM (currently by main thread)
+
+Why Exception handling ?
+1. To allow the continuation of java app , even in case of run time errors.
+2. Reduces the need for checking validation of ret types.
+3. Allows a Separation between business logic n error handling
+
+Flow , inheritance hierarchy , checked vs un checked excs
+keywords : try, catch , finally , throw , throws , try-with-resources
+

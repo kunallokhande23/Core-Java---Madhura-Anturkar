@@ -1,0 +1,74 @@
+Revision
+Functional Streams (Java 8 Streams)
+Refer to streams_sequence
+
+Enter  Java I/O 
+
+
+Stream :
+1. Src (eg : arrays , collection : Collection i/f --stream , files)
+2. Optionally n no of intermediate ops -- rets stream type of result
+3. Terminal op : at the most 1 ---rets non-stream type of result
+
+AL<Emp> emps=new AL<>();
+..... 100 refs 
+for(Emp e : emps)
+ sop(e);
+for(Emp e : emps)
+ sop(e);
+for(Emp e : emps)
+ sop(e);
+emps.forEach(e -> e.setSal(e.getSal()+5000));
+
+
+
+Additional objectives
+1. Supplier func i/f
+Objective : Get product map from utils --filter products created after a date -- avg the price--Optional -- orElseThrow
+
+
+Refer to code samples.
+
+--------------------------------
+
+Enter I/O
+
+
+Refer to diagram : i/o overview 
+Objectives 
+1. Text file copy , in a buffered manner.
+i/p : src file name , dest file name (including the path)
+
+-----------------Pending---------------------
+2. Enter Binary file handling streams 
+2.1 Node streams -- FileInputStream , FOS
+2.2 Buffering of bin data
+
+2.3 Integration of Collection + I/O
+
+Steps
+1. Get populated List of products --sort product details  as per date(desc) --store these details in a bin file.
+
+1.1 Core classes  : Product , Category 
+1.2 custom exc
+1.3 ShopUtils --collection utils --
+populate list
+populate map
+add a new static method to sort product details
+1.4 IOUtils -- i/f
+add a static method --to store the sorted list of products in a bin file
+chain of I/O strms
+//Java App --->BOS: buffering strm ---> FOS: node strm --bin file
+Methods of BOS : write : byte / byte[]
+Meaning --list ---> forEach --> who will have to convert product details (eg : id ,name , date, ......)
+to bytes (bin) --???
+
+
+Instead of doing this tedious conversion yourself --- use readymade conversion streams
+java.io.ObjectOutputStream , ObjectInputStream
+
+
+1.5 Tester : StoreProductDetails --
+Accept name of file from user n call our own API 
+
+2. Restore the product details from a bin file ---> Java App (List)

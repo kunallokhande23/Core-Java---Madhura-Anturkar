@@ -1,0 +1,110 @@
+Java Vs C++
+Development wise differences
+1. Java is platform independent language but c++ is dependent upon operating system.
+At compilation time Java Source code(.java)  converts into byte code(.class) .The interpreter translates this byte code at run time into native code and gives output. 
+
+2. Java uses both a compiler and interpreter, while C++ only uses a compiler
+
+
+Syntactical differences
+1. There is no final semi-colon at the end of the class definition.
+2. Functions are called as methods.
+3.  main method is a member of class 
+& has a fixed form 
+public static void main(String[] args) -- argument is an array of String. This array contains the command-line arguments.
+4. main method must be inside some class (there can be more than one main function -- there can even be one in every class)
+5. Like the C++ << operator,
+   
+To write to standard output, you can use either of the following:
+
+	System.out.println( ... )
+	System.out.print( ... )
+    
+
+The former prints the given expression followed by a newline, while the latter just prints the given expression.
+
+These functions can be used to print values of any type. eg : 
+
+	System.out.print("hello");   // print a String
+	System.out.print(16);        // print an integer
+	System.out.print(5.5 * .2);  // print a floating-point number
+       
+
+The + operator can be useful when printing. It is overloaded to work on Strings as follows:
+If either operand is a String, it 
+    converts the other operand to a String (if necessary)
+    creates a new String by concatenating both operands .
+
+Features wise differences.
+
+1. C++ supports pointers whereas Java does not support pointer arithmetic. It supports Restricted pointers. 
+Java references (Restricted pointers) can't be arithmatically modified.
+
+2. C++ supports operator overloading , multiple inheritance but java does not.
+
+3. C++ is nearer to hardware than Java.
+
+4. Everything (except fundamental or primitive types) is an object in Java (Single root hierarchy as everything gets derived from java.lang.Object).
+
+Java  is similar to C++ but it doesn't have the complicated aspects of C++, such as pointers, templates, unions, operator overloading, structures, etc. Java also does not support conditional compilation (#ifdef/#ifndef type).
+
+Thread support is built into Java but not in C++. C++11, the most recent iteration of the C++ programming language, does have Thread support though.
+
+Internet support is built into Java, but not in C++. On the other hand, C++ has support for socket programming which can be used.
+
+Java does not support header files and library files. Java uses import to include different classes and methods.
+
+Java does not support default arguments.
+
+There is no scope resolution operator :: in Java. It has . using which we can qualify classes with the namespace they came from.
+
+There is no goto statement in Java.
+
+Because of the lack of destructors in Java, exception and auto garbage collector handling is different than C++.
+
+Java has method overloading, but no operator overloading unlike C++.
+
+The String class does use the + and += operators to concatenate strings and String expressions use automatic type conversion,
+
+Java is pass-by-value.
+
+Java does not support unsigned integers.
+
+--------------
+Why java doesn't support c++ copy constructor?
+Java does. They're just not called implicitly like they are in C++ .
+
+Firstly, a copy constructor is nothing more than:
+
+public class Blah {
+  private int foo;
+
+  public Blah() { } // public no-args constructor
+  public Blah(Blah b) { foo = b.foo; }  // copy constructor
+}
+Now C++ will implicitly call the copy constructor with a statement like this:
+
+Blah b2 = b1;
+Cloning/copying in that instance simply makes no sense in Java because all b1 and b2 are references and not value objects like they are in C++. In C++ that statement makes a copy of the object's state. In Java it simply copies the reference. The object's state is not copied so implicitly calling the copy constructor makes no sense.
+
+
+-----------------
+
+
+All stand-alone C++ programs require a function named main and can have numerous other functions. Java does not have stand alone functions, all functions (called methods) are members of a class. All classes in Java ultimately inherit from the Object class, while it is possible to create inheritance trees that are completely unrelated to one another in C++.  In this sense , Java is a pure Object oriented language, while C++ is a mixture of Object oriented and structure language.
+
+The interface keyword in Java is used to create the equivalence of an abstract base class containing only method declarations and constants. No variable data members or method definitions are allowed(true till Java 8) . C++ does not support interface concept. Java does not support multiple inheritance. To some extent, the interface feature provides the desirable features of multiple inheritance to a Java program without some of the underlying problems.(death of a diamond)
+
+Java is running on a Virtual Machine, which can recollect unused memory to the operating system, so Java does not destructor.  Unlike C++, Java cannot access pointers to do memory operation directly. This leads to a whole host of subtle and extremely important differences between Java and C++. 
+
+Furthermore, the C++ compiler does not check whether all local variables are initialized before they are read. It is quite easy to forget initializing a variable in C++. The value of the variable is then the random bit pattern that happened to be in the memory location that the local variable occupies.
+
+Java does not have global functions and global data. Static in Java is just like global in C++, can be accessed through class name directly, and shared by all instances of the class.  For C++, static data members must be defined out side of class definition, because they don't belong to any specific instance of the class.
+
+Generally Java is more robust than C++ because:
+
+Object handles (references) are automatically initialized to null.
+Handles are checked before accessing, and exceptions are thrown in the event of problems.
+You cannot access an array out of bounds.
+Memory leaks are prevented by automatic garbage collection.
+While C++ programmer clearly has more flexibility to create high efficient program, also more chance to encounter error.

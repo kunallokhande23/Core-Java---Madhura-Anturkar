@@ -1,0 +1,26 @@
+Must complete these pre requisites , before the beginning of the Java module
+
+Java Installation 
+1. JDK 11 download
+https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
+Choose your platform , download the installer and install the JDK.
+(Create Oracle account if not yet created)
+
+2. Open command prompt or terminal
+Type
+java -version
+It should show you : java version "11.0.7" 2020-04-14 LTS
+Note : Basic version should be 11, update version may differ.
+
+2.5 Edit system  environment variable path,
+to set <JDK>/bin as it's 1st entry.
+
+3.Java IDE download
+https://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3
+Choose 3.9.18 version and download. Extract it. No installation is required.
+
+4. Java API Dcoumentation link  
+https://docs.oracle.com/en/java/javase/11/docs/api/index.html
+
+5. Offline version
+https://www.oracle.com/java/technologies/javase-jdk11-doc-downloads.html

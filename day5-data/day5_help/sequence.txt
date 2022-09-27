@@ -1,0 +1,196 @@
+Have you tested event org app ?
+
+Today's topics
+Revision
+Polymorphism
+Abstraction
+
+Revise
+
+What is inheritance ?
+Important part of OOP 
+Represents which relationship between classes ? IS A
+Upper hierarchy : super class / base class /parent class
+lower hierarchy : sub class / derived class / child class
+key word : extends
+Any examples : Object <----BankAccount <--- SavingAccount , CurrentAccount , LoanAccount
+Universal super class : java.lang.Object
+
+Why : reduces redundancy n incs re usablity
+Types : single , multi-level , hierarchial : supported
+multiple inheritance : not supported 
+Discuss Diamond issue
+
+
+super keyword
+
+super keyword usages
+1. To invoke immediate super cls's matching constr (eg : super(fn,ln))
+2. To access super cls's accessible members (eg : super.toString())
+
+Important statements
+Sub class IS A super class + something more(addtional data members + methods) + something modofied(behaviour : methods : method overriding)
+
+IMPORTANT : Javac resolves method binding by type of the reference BUT JVM resolves it by type of the instance it's referring to .
+
+Solve :
+Fruit : super class
+//@Override : javac err
+public String taste()
+{
+ return "No specific taste";
+}
+Mango extends Fruit
+{
+ override : to return "sweet"
+@Override
+public String taste()
+{
+  return "sweet";
+}
++ additional func
+public void pulp()
+{
+  sop("extracting mango pulp");
+}
+
+}
+Orange extends Fruit
+{
+ override taste : to return "sour"
++ additional func
+public void juice()
+{
+  sop("extracting orange juice");
+}
+}
+Alphonso extends Mango
+{
+   @Override
+public String taste()
+{
+  return "very sweet";
+}
+}
+Apple extends Fruit 
+{
+   override taste : to return"sweet n sour"
+   //jam 
+   public void jam() 
+   {
+      sop("creating apple jam...");
+   }
+}
+
+
+Solve
+What will happen ?
+
+Fruit f=new Mango();// up casting
+sop(f.taste());//no javac err : since javac chks it by type of the ref : f : Fruit => javac chks is there taste() method in Fruit class --Yess --compiles ok, JVM resolves method binding by the type of the object(instance) --Mango --so JVM will invoke taste() on Mango's obj. : run time poly : sweet
+
+f=new Orange(...);//up casting
+f.taste();//sour : Dyn method dispatch=run time poly
+
+f=new Alphonso();//up casting :  no javac err
+f.taste();//very sweet
+
+
+Object o=f;//no javc err : since evry Fruit IS A Object. : up casting
+o.taste();//javac err : why --there is no taste() in Object class 
+Is there any soln to satisfy the javac ? Yes : explicit downcasting : type cast
+((Alphonso)o).taste();//no javac err! ---run time 
+Object o ----> Alphonso 's instace --> CP ---> Alphonso  class : very sweet.
+
+Solve :
+
+Fruit f=new Orange();
+f.taste();// sour
+f.juice();//javac err
+soln 
+((Orange)f).juice();//no javac err, prints : "extracting orange juice"
+
+
+f=new Apple();//no javac err
+f.taste();//no javc err , JVM : sweet n sour
+((Apple)f).jam(); // no err , prints : "creating apple jam..."
+f.juice();//javc err
+((Orange)f).juice();//javac err : no , any run time err or o/p 
+run time err : why ---Fruit type of ref ---> Apple's instance , Can Apple be cast in to Orange ? NO
+java.lang.ClassCastException : Apple can not be cast in to Orange!!!!
+
+Is there any way to avoid class  cast exc due to wrong down casting ?
+YES : java keyword : instanceof : RTTI : run time type info. checking
+
+Fruit f=new Orange();
+if (f instanceof Mango) //false
+ ((Mango)f).pulp();
+else 
+sop("It's not a mango , can't be pulped!!!!!!!!!!!!!!!!");
+
+
+Enter polymorphism formally : refer to readme inheritance polymorphism
+
+Refer to method overloading vs method overriding
+
+Identify the rules.
+Examples of method overloading : print / println methods
+
+Example of Method overriding
+eg : toString
+
+
+Add new options in event org app
+
+4. Display specific participant details
+i/p : seat no
+validate seat no -- display details : toString
+DOES NOT any downcasting
+
+5.
+Objective : Executing sub class specific functionality.
+Add a new method "study" in Student class & "teach" in Faculty class
+Option 5 : User i/p : seat no
+Check if seat no is valid .
+In case of valid seat no  --- If it's a Student , invoke study method , if it's a Faculty invoke teach method
+
+
+
+ instanceof keyword
+
+5. Enter abstraction
+
+eg : Shapes scenario
+Solve this
+
+1. BoundedShape -- x,y (state) 
+Method --public double area() : return -100;
+public String toString()
+
+2. Circle -- x,y,radius
+Method --public double area()
+public String toString()
+
+3. Rectangle -- x,y,w,h
+Method --public double area()
+public String toString()
+
+eg : In a Tester 
+Create bounded shapes using dyn init of array n display details n area().
+//c1,r1,c2,r2
+BoundedShape[] shapes={new Circle(10,20,12.5),new Rectangle(50,100,10,20),new Circle(14,26,12.8),new Rectangle(51,80,10.5,20.6)};//how many objs : 1 (array) + 4 shapes
+for(BoundedShape s : shapes) {
+ sop(s);//no javac err
+// if(s instanceof Circle) 
+// sop(((Circle)s).area());
+//else if (s instanceof Rectangle)
+// ......
+  sop("Area ="+s.area());
+}
+
+
+Can you apply abstraction in the above scenario ? Yes
+How ? abstract method n abstract class
+
+
+

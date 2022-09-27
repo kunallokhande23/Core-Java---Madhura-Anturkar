@@ -1,0 +1,39 @@
+1. The inner class(non-static nested) has access to all of the outer class's members, including those marked private , directly(without inst.)
+BUT Outer class MUST make an instance of the inner class , to access it's members.
+2. To instantiate an inner class, you must have a reference to an instance of the outer class.
+syntax :
+Instantiating a non-static nested class requires using both the outer inst and nested class names as follows:
+BigOuter.Nested n = new BigOuter().new Nested();
+3. Such Inner classes can't have static members.(Java SE 8 --allows static final data members)
+
+
+About method-local inner classes
+
+1.A method-local inner class is defined within a method of the enclosing class.
+2.For the inner class to be used, you must instantiate it, and that instantiation must happen within the same method, but after the class definition code.
+3. A method-local inner class cannot use variables declared within the method
+(including parameters) unless those variables are marked final or effectively final.
+
+
+static nested classes
+1.A static nested class is not an inner class, it's a top-level nested class.
+2. You don't need an instance of the
+outer class to instantiate a static nested class.
+
+4.It cannot access non-static members of the outer class directly BUT can access static members of the outer class.
+
+5. It can contain both static & non-static members.
+
+6. JVM will not load any class's static init block -- until u actually refer to something from that class.
+(Lazy loading) This is true for static nested classes too.
+
+7. Instantiating a static nested class requires using Outer class name  and instance of nested class names as follows:
+Outer.Nested n = new Outer.new Nested();
+
+
+
+
+
+
+
+

@@ -1,0 +1,580 @@
+Day 1
+0. Download n extract today's contents.
+
+1. Please revise today's work , using the "sequence.txt"
+
+2. Go through day1/code : all code samples
+
+3. Solve ready code samples n revise completely.
+Main revision topics  : Java control structures , loops, primitive types , automatic n forced conversions(type casting)
+operators , basics of class programming  , classes , objects , constructor , this keyword.
+(refer to "regarding class n object.txt")
+For unicode : refer to "day1-data\day1_help\readmes\regarding unicode"
+
+4. No hands-on assignment for today.
+
+Day 2
+1. Refer to today's sequence
+refer : day2-data\code without IDE\day2
+n revise packages , access specifiers
+
+2. import day2.1 in your eclipse workspace n revise code with mem pics.
+(refer : whiteboard-mem-pics.png)
+
+DO NOT copy n run below  code in IDE.
+You have to go through the code n answer.
+
+3. Solve Tank assignment along with memory picture.
+
+What will be the output ?
+
+class Tank {
+  private int level;
+  Tank(int l)
+   {
+     level=l;
+   }
+  public void setLevel(int level1)
+  {
+    level=level1;
+  }
+  public int getLevel()
+  {
+    return level;
+  }
+}	
+
+public class Assignment {
+  public static void main(String[] args) {
+    Tank t1 = new Tank(10);
+    Tank t2 = new Tank(20);
+     s.o.p("1: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//10 20
+    t1 = t2;//1st tank obj is marked GC
+    s.o.p("2: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//20 20
+    t1.setLevel(27);
+     s.o.p("3: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//27 27
+    t2.setLevel(t1.getLevel()+10);
+     s.o.p("4: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//37 37
+  }
+}
+
+4. What will happen (solve ready code samples )
+day2-data\day2_help\params_passing
+4.1 TestParamPassing1.java
+4.2 TestParamPassing1.java
+
+
+Day 3
+1. import day3.1 , in your workspce , to revise
+1.1 references , obj creation n class loading , with mem pics. , methods passing reference , returning ref.
+1.2 static keyword usage
+1.3 arrays
+
+2. Solve
+2.1 Continue with Box array example
+Can you double box width for all boxes having volume > 100 , using for-each ?
+If yes : try it.
+
+3. Fresh assignment
+
+Create a  class Point2D  , under package "com.cdac.geometry" for representing a point in x-y co-ordinate system.
+
+3.1 Create a parameterized constructor to accept x & y co-ords.
+
+3.2 Add public String show()) --to return point's x & y co-ords
+
+3.3 Add isEqual method to Point2D class : boolean returning method : must return true if both points are having same x,y co-ords or false otherwise.
+3.4 Add a method , calculateDistance , to calc distance between 2 points
+Hint : use distance formula.
+
+3.5  Create a driver  class(for UI)  , in the "tester" package "TestPoints" , with main(..)
+Ask user , how many points to plot? :
+Create suitable array.
+3.6  Accept x,y co-ordinates for all the points n store it suitably.
+3.7  Display x,y co-ordinates of all the points plotted so far ,using for-each loop.
+3.8  Accept 2 indices from user .
+Find out if the points at these indices are same or different (Hint : isEqual)
+Print the message accordingly. 
+If points are not same , display distance between these 2 points.
+
+Day 4
+No new assignments !
+1. Try to Complete all pending assignments, today itself.
+
+2.import day4.1 into your workspace n revise along with today's sequence n readmes 
+2.1 Inheritance n it's  types 
+2.2 Constructor invocation in the inheritance hierarchy
+2.3 Polymorphism n it's  types 
+2.4 method overriding rules to achieve run time poly.
+2.5 @Override annotation
+2.6 Applying it to a real case study : Event organizer app.
+
+3. Answer this
+When you call : 
+System.out.println(ref);
+How does it actually invoke : System.out.println(ref.toString());
+Hint : refer to javadocs of PrintStream : println(Object ref) method
+
+
+
+Day 5
+
+1. Revise : inheritance , run time polymorphism , up casting , downcasting n instanceof checking n abstraction using today's sequence , readmes n code samples
+(import day5.1 , day5.2 n revise completely)
+
+2.1 Refer to today's sequence n read about Fruits hierarchy. Understand or still better confirm it completely.
+
+3. Solve
+(fresh assignment)
+
+
+3.1 Can you arrange Fruit,Apple,Orange,Mango in inheritance hierarchy ?
+Use tight encapsulation.
+
+3.2 Properties (instance variables)  : color : String , weight : double , name:String, fresh : boolean
+
+3.3 Add suitable constructors.
+
+3.4 Override  toString correctly to return state of all fruits (return only  : name ,color , weight )
+
+3.5 Add a taste() method : public String taste()
+
+For Fruit : Can you identify taste of any general fruit ?
+So will you add a taste() with this definition : returns "no specific taste" OR can u apply abstraction?
+
+Apple : should return  "sweet n sour"
+Mango : should return  "sweet"
+Orange : should return  "sour"
+
+Add specific functionality , in the sub classes
+In Mango : public void pulp() {Display name n color of the fruit + a mesg  creating  pulp!}
+In Orange : public void juice() {Display name n weight of the fruit + a mesg extracting juice!}
+In Apple : public void jam() {Display name of the fruit + a mesg  making jam!}
+
+
+3.6 Add all of above classes under the package "com.app.fruits"
+3.7 Create java application FruitBasket , with main method , as a tester
+3.8 Prompt user for the basket size n create suitable data structure
+3.9 Supply options
+1. Add Mango
+2. Add Orange
+3. Add Apple
+NOTE : You will be adding a fresh fruit in the basket , in all of above options.
+
+4. Display names of all fruits in the basket.
+
+5. Display name,color,weight , taste of all fresh fruits , in the basket.
+
+
+6. Mark a fruit in a basket , as stale(=not fresh)
+i/p : index 
+o/p : error message (in case of invalid index) or mark it stale
+
+
+7. Mark all sour fruits stale 
+
+8. Invoke fruit specific functionality (pulp / juice / jam)
+i/p : index
+Invoke correct functionality (pulp / juice / jam)
+
+10. Exit 
+
+Day 6
+1. Complete pending assignments first.
+
+2. Revise the class work , using today's sequence n readmes
+2.1 import day6.1 , to revise interfaces completely 
+2.2 import day6.2 to revise intro to exc handling
+
+3. Hands on
+ Create Java application for fixed stack & growable stack based on Stack i/f , for storing customer details
+
+Customer has : id(int), name (string) , address(string)
+Provide suitable constructor n toString
+
+
+Steps
+3.1  Create Customer class
+3.2 Stack interface -- push & pop functionality for Customer refs. & declare STACK_SIZE as a constant. 
+3.3 Create implementation class of Stack i/f -- FixedStack (array based)
+3.4 Create another implementation class of Stack i/f-- GrowableStack (array based)
+Can you add inheritance between Fixed Stack n Growable Stack ?
+
+3.5
+Create Tester class (Hint :  use dynamic method dispatch using interfaces)
+Display Menu
+Note : Must use 1 switch-case only. You won't need any complex nested control structure
+Once user selects either fixed or growable stack , user shouldn't be allowed to change the selection of the stack.
+
+1 -- Choose Fixed Stack
+
+2 -- Choose Growable Stack
+Accept following options only after initial selection
+
+3 -- Push data 
+I/P : Accept customer details & store these details in the earlier chosen stack or give error mesg : NO stack chosen !!!
+In case user has chosen fixed stack , n stack is full give err mesg. 
+In case of growable stack , should be able to save customer details w/o getting err.
+
+4 --- Pop data & display the same (from the earlier chosen stack or give error mesg : NO stack chosen !!!)
+No inputs are required : pop customer details from the top of the stack
+
+5 -- Exit
+
+
+Day 7.
+
+1. import day7.1 to revise exc handling completely
+
+2. import day7.2 to revise string handling
+
+After I join ,
+
+3. Complete stack assignment
+
+4. run time polymorphism internals
+
+5. Add exc handling in stack assignment.
+
+Day 8
+Refer to today's sequence .
+
+1. import day8.1 to revise
+1.1 String API
+1.2 StringBuilder API
+1.3 Date / Time Handling , SimpleDateFormat , parse n format methods
+1.4 Enums in java (refer : day8-data\day8_help\enums\regarding enums.txt)
+
+2. import day8.2 to revise
+Core classes : Vehicle 
+Vehicle HAS-A Color (enum)
+Refer to AddVehicle tester.
+
+3. After completing revision , we will discuss n build the following.
+
+Showroom Management system , which will keep track of vehicles added in the showroom.
+
+1. Prompt showroom capacity
+Create suitable array.
+Options
+1. Add Vehicle to the showroom.
+Accept data --validate all i/ps --success -- add vehicle
+o.w : throw exc (built in / custom exc)
+
+2. Display all vehicle details
+
+10. Exit
+
+Add  validation rules
+1 No dup vehicles should be added in the showroom
+2 manufactureDate : must be in current financial year(1st Apr 2022 ---31st Mar 2023)
+3 Vehicle color must be available
+4 price : min 10000 , max 100000
+
+Day 9
+
+Refer to today's sequence , for systematic revision.
+
+1. import day9.1 to revise
+1.1 data members n methods added in enum  Color.
+1.2 Computing actual price of the vehicle , based upon it's color.
+1.3 overriding of equals method : IMPORTANT
+(understand it with simple testers n then check the duplication rules based on chasis no)
+1.4 Revise HAS-A , aggregation between Vehicle n DeliveryAddress
+
+2. import day9.2 to revise 
+
+ wrappers , using readme , diagram , code
+
+3. import day9.3 to revise
+composition using nested classes.
+
+4. Hands on (we will be discussing n doing it in parallel manner , after I join the labs. BUT if anyone completes the revision earlier , do try!)
+
+4.1 Refer to earlier event management app.
+Add a validation rule :
+You can't accept duplicate registration
+Primary key for a participant : firstName n lastName (Composite PK)
+Test it. 
+
+4.2 Display participant details
+i/p first name n last name
+o/p : details  or err mesg via custom exc.
+
+
+5. Add new Options in Showroom management system.
+
+Options : 
+3. Get vehicle details
+i/p : chasis no 
+o/p : vehicle details or err mesg via custom exception
+
+4. Apply discount on all the vehicles of a specific color
+i/p : color , % disocount
+o/p : suitable message
+
+5. Purchase Vehicle
+i/p : vehicle's chasis no 
+In case of valid chasis no , if the vehicle is not already sold , accept delivery address details & assign it to the vehicle.
+o/p : in case of invalid chasis no or vehicle already sold --throw custom exc
+o.w : assign delivery address &  give success message.
+Soln : sop("Enter chasis no");
+Vehicle foundVehicle=findByChasisNo(sc.next(),vehicles);
+
+Day 10
+No new practical assignment for today !
+
+1. Complete earlier pending work
+
+2. import day10.1 , for vehicle purchasing
+
+3. import day10.2 , to revise
+3.1 non static nested classes : inner class completed so far , all rules
+3.2 need of generic syntax
+3.3 basic ArrayList example
+
+4. Pls go through Collection framework overview , using slides , readme n diagrams.
+
+Day 11
+1.Revise Collection framework overview 
+2. Revise List API , using day11.1 n it's practical application from day11.2 eclipse projects.
+
+3. Mini Project , to apply the learnt concepts.
+
+Create Java application for customer management system.
+
+3.1 Customer : id(int) name(string),email(string),password(string),registrationAmount(double),dob(Date),type (ServicePlan : enum)
+ServicePlan : SILVER,GOLD,DIAMOND,PLATINUM
+Depending on the plan chosen customer can avail different types of services
+
+Registration amounts for different plans 
+SILVER :  500
+GOLD : 1000
+DIAMOND : 1500
+PLATINUM : 2000
+
+customer id should be system generated , using auto increment.
+
+Unique ID(Primary Key ) : email  (2 customers are SAME iff their email ids are same)
+
+
+3.2 
+
+Validation Rules 
+email must contain "@" & should be from ".com" or ".org"  domain
+password must be min 4 max 10 chars long. Must contain atleast 1 special character : # @ $ % * 
+dob should be before 1st Jan 1995
+duplicate customer details should not be stored.
+Customer should pay  correct reg amount as per the selected plan 
+
+Centralized exception handling is expected.
+
+3.4 Use suitable data structure for storing customer details.
+Must be dynamic in nature
+
+Options
+1. Customer registration
+Accept n Validate customer details.
+Iff it's valid , store it  , o.w display error message via custom exception
+
+2. Display details of all registered customers
+(for-each)
+
+3 Customer login
+i/p : email ,password
+o/p success mesg or error mesg via exc handling
+
+4. Change Password 
+i/p : email ,old password ,new password
+o/p success mesg or error mesg via exc handling
+
+5. Link adhar card details of the customer.
+i/p : customer id 
+In case of valid id n if the adhar card is not already linked , prompt for adhar card details : adhar card no(string) n location (string)
+n link the same.
+What will you use here ? Aggregation or composition ?
+
+6. Un subscribe customer
+i/p : customer id 
+In case of valid id , delete customer details . o.w give suitable error message.
+
+7. Display names of the customers born between 2 specified dates.
+i/p : begin date n end date.
+
+8. Display all the customer details ,who have chosen specific plan
+i/p plan name
+
+9. Remove all customer details , who have not yet linked adhar card.
+It should display names of such customers.
+
+10. Exit
+
+
+Day 13
+1. Refer to today's sequence , import day13.1 , to revise
+
+1.1 Sorting in Java (Natural n Custom Ordering , with anonymous inner class)
+eg : Sort the Vehicles as per color , w/o touching Vehicle class
+Collections.sort(list,new Comparator<>()  ---> instance of the ano inner cls which imple Comp.
+{
+@Override 
+public int compare(Vehicle v1,Vehicle v2)
+{
+ return v1.getColor().compareTo(v2.getColor());
+}
+});
+
+
+1.2 Iterators n ListIterators n exceptions
+1.3 ArrayList Vs LinkedList , with javadocs , readmes n code samples
+
+2. Import day13.2 to revise :
+Set interface & implementation classes
+
+3. Hands on
+3.1 Continue with Customer Management System.
+(Even if you have not added all validation rules n all the options, at least keep the core classes , custom exception , collection utils with some sample data ready)
+
+Min Java Code : core classes , 1 validation rule --for dup chking , custom exc
+Options
+1. Customer registration
+Accept n Validate customer details.
+Iff it's valid , store it  , o.w display error message via custom exception
+
+2. Display details of all registered customers
+(for-each)
+
+
+1. Display customer details , sorted as per email (using Natural Ordering)
+2. Display customer details , sorted as per date of birth (using custom ordering n ano inner class)
+3. Accept service plan from user . Remove all customers of the specified plan
+Hint : Iterator's remove method.
+4. Use ListIerator to display details of last 3 customers.
+
+Day 14
+1. Complete Day 13 pending work
+
+2. import day14.1 , today's sequence n Hashing algorithm diagram , to revise mandatory part of the contract. Go through "hashing observations.txt"
+It will detect the dups BUT won't offer O(1)
+
+3. import day14.2 , today's sequence n Hashing algorithm diagram , to revise mandatory n optional part of the contract. Go through "hashing observations.txt"
+It will detect the dups AND  will offer O(1)
+
+Hands on
+
+4.  
+Create Emp class with -- id (string) , deptId (int) , dob(LocalDate) , name , salary
+PK : composite PK
+id (string) n deptId (int) n dob(Date/LocalDate)
+Emps are same iff : id n deptId n dob is same
+Add these emps(at least 5 entries)  in a HashSet . Ensure no dups + O(1)
+Steps 
+1.override equals -- id deptId dob
+2. override hashCode -- using SAME fields --- reco to use prime no 
+
+
+5. Continue with earlier HashSet<Employee>
+
+Sort the employees in a set  as per salary.(Custom Ordering)
+Steps 
+1. Populated HS (from earlier work) -- un ordered n un sorted 
+2. TreeSet(comp) --ano inner class -- empty TS
+ts.addAll(hs); --- JVM invokes --comp's compare
+
+6. Revise overview of Maps n it's API
+
+Day 15
+1. Revise Map API .
+import day15.1 to test CRUD n searching operations in HashMap
+
+2. import day15.2 , to revise additional generic syntax -- ? , extends , super
+
+3. Solve 
+Create a new eclipse project (day15_assignment) , for basic library management system
+
+1. Store book details in a library in suitable data structure to ensure no dups n constant time performance for CRUD operations.
+
+Book details : title(string),category(enum),price(double),publishDate(LocalDate) ,authorName(string),quantity(int)
+Unique ID : book title
+Accept at least 5 book details from user & confirm if hash set is working in a correct manner.
+
+We are not adding any extra validations rules here , to keep the focus on collection frmwork
+
+Create a populated D.S (data structure) with sample data : atleast 5 entries
+
+Supply following options
+BUT none of the options should be available before login
+Credentials For admin user : admin,admin1234
+Credentials For ordinary reader : reader,reader1234
+3.0 : User login
+i/p : user name n pwd
+
+Can use AuthenticationException , AuthorizationException
+
+3.1 Add book.
+I/P Book title
+In case of a new book , store book details in the map.
+In case of duplicate title , just update the quantity
+Steps : accept title (sc.nextLine) --get ---null => new book ---accept remaining details --put
+get --not null => existing book -- accept qty --update it !
+
+3.2 Display All books in a library
+Steps : map --> values() --> Collection --for-each
+
+
+3.3 Issue out a single copy of the book.
+i/p book title
+If the book is found , update the quantity suitably.
+Otherwise , raise suitable exception  : mesg : invalid book title
+Steps : get -- null -- raise custom exc
+not null ---chk qty  -- 0 => Book un available
+update qty
+
+3.4 Return a book
+i/p book title
+If the book is found , update the quantity suitably.
+Otherwise , raise suitable exception
+
+3.5 Remove book
+i/p book title
+If the book is found , remove book's entry(key n value pair) from the library. 
+Otherwise , raise suitable exception
+
+3.6 Display book details of a specified author
+i/p : author
+
+3.7 Display book details all books published after a specific date n from a specific category.
+i/p date n category
+
+OR
+Create a menu driven application "TaskManager" to manage your day-to-day tasks. 
+
+You can create a class Task with fields like taskId, taskName, description, taskDate, status, active. 
+taskId should be unique and generated automatically.
+status should be either PENDING, IN_PROGRESS or COMPLETED.
+active should be either true or false. Deleted task will have active=false 
+Newly added task should have default status as PENDING and active=true
+
+You can use suitable data structure to store data in memory.
+
+Following functionalities are expected -
+
+1. Add New Task                      
+2. Delete a task                        
+3. Update task status              
+4. Display all pending tasks     
+5. Display all pending tasks for today          
+6.  Display all tasks sorted by taskDate        
+
+Day16
+1. Complete pending work
+
+2. Revise entire week's work. 
+
+3. import day16.1 , to revise more generic syntax.
+
+4. import day16.2 to revise Java 8 new features.

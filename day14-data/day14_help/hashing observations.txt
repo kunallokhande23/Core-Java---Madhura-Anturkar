@@ -1,0 +1,71 @@
+Obs : when mandatory part of the contract was followed.
+in emp's hC
+Added true
+in emp's hC
+in emp equals
+Added false
+in emp's hC
+in emp equals
+Added false
+in emp's hC
+in emp equals
+Added true
+in emp's hC
+in emp equals
+in emp equals
+Added true
+in emp's hC
+in emp equals
+in emp equals
+in emp equals
+Added true
+in emp's hC
+in emp equals
+in emp equals
+in emp equals
+in emp equals
+Added true
+Size 5
+Employee [empId=rnd-001, name=Prasad, salary=10000.0]
+Employee [empId=rnd-010, name=Riya, salary=19000.0]
+Employee [empId=rnd-008, name=Ajit, salary=18000.0]
+Employee [empId=rnd-003, name=Raj, salary=17000.0]
+Employee [empId=rnd-005, name=Arpit, salary=17000.0]
+chking if the contract is followed
+in emp equals
+true
+in emp's hC
+in emp's hC
+100 100
+-----------------------------------------------------------
+Obs : when mandatory n optional part of the contract was followed.
+in emp's hC
+Added true
+in emp's hC
+in emp equals
+Added false
+in emp's hC
+in emp equals
+Added false
+in emp's hC
+Added true
+in emp's hC
+Added true
+in emp's hC
+Added true
+in emp's hC
+Added true
+Size 5
+Employee [empId=rnd-005, name=Arpit, salary=17000.0]
+Employee [empId=rnd-008, name=Ajit, salary=18000.0]
+Employee [empId=rnd-010, name=Riya, salary=19000.0]
+Employee [empId=rnd-001, name=Prasad, salary=10000.0]
+Employee [empId=rnd-003, name=Raj, salary=17000.0]
+chking if the contract is followed
+in emp equals
+true
+in emp's hC
+in emp's hC
+1339151500 1339151500
+
+

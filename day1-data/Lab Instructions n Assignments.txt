@@ -1,0 +1,14 @@
+Day 1
+0. Download n extract today's contents.
+
+1. Please revise today's work , using the "sequence.txt"
+
+2. Go through day1/code : all code samples
+
+3. Solve ready code samples n revise completely.
+Main revision topics  : Java control structures , loops, primitive types , automatic n forced conversions(type casting)
+operators , basics of class programming  , classes , objects , constructor , this keyword.
+(refer to "regarding class n object.txt")
+For unicode : refer to "day1-data\day1_help\readmes\regarding unicode"
+
+4. No hands-on assignment for today.

@@ -1,0 +1,188 @@
+Today's Topics
+Applying threads to a practical scenario
+Synchronization
+ITC
+-------------------------------
+
+Revise
+Thread state transitions n API
+1. Doesn't Exist ---->NEW
+Which different techniques ?
+extends Thread 
+OR 
+implements Runnable i/f
+
+
+java.lang.Runnable : i/f : Functional i/f
+SAM : public void run()
+Any relation between Runnable i/f n Thread class : YES
+IS-A
+Thread implements Runnable
+
+2. NEW ---> Ready-To-Run (pool=> sharing of resources & collection of equivalent resources)
+
+Ready-To-Run => thrds in this state : are not blocked on any condition , simply waiting for CPU time
+How to trigger this transition ? Method of Thread class : public void start()
+
+3. Ready --> Running (context switching) : controlled by Native O.S (scheduler)
+(execs run() method : B.L / exec logic)
+
+4. Running ---> Ready (context switching) 
+triggers : time slice over / pre emption / Thread.yield() : un reliable
+
+Ready + Running => RUNNABLE
+
+5. Running ---> dead
+run() over 
+
+
+When will you get  java.lang.IllegalThreadStateException : 1.dead : start()
+2. Runnable --> start()
+
+
+6. Running ---> BLOCKED
+
+6.1 sleep : public static void sleep(long msec) throws InterruptedException
+eg : t1 : run()
+Thread.sleep(1000);
+1. After 1 sec : t1 -->rdy pool
+OR 
+2. t2 : run()
+t1.interrupt(); //t2 ---> interrupt ---> t1 , t2 : runnable
+t1 : un blocked --- InterruptedException --> rdy pool
+t1 : running ---> try block aborted --enters catch block....
+
+
+6.2 join :
+t1 : run : 
+try {
+some B.L ....
+ t2.join(1000);//t1 waits for t2 to complete or time out or interrupt
+ sop("cntd....");
+} catch-all
+...
+
+
+t2 : t2 gets over in 500msec : dead , t1 : unblocked : cntd ...
+OR
+t2 : runnable 
+
+t3 : run : t1.interrupt() : 700ms --t1 is unblcked --rdy --running : IntExc --catch-all
+
+OR
+t2 : runnable
+no interrupts from any thrds
+t1 : after 1sec : t1 : rdy --> running --> cntd...
+
+
+6.3 blocked on i/p
+eg : t1 's run : sc.nextInt() OR System.in.read() : causes the invoker thread to block on i/p 
+
+t2 : run()
+t1.interrupt(); //t2 ---> interrupt ---> t1 , t2 : runnable
+t1  : continues to be BLOCKED (i.e interrupt IS NOT an unblcoking trigger for the thrds which are blocked on i/p --while using java.io classes or Scanner)
+
+
+6. When blocking condition is removed 
+BLOCKED ---> Ready-to-Run(competes with other thrds in ready pool)
+
+7. Techniques
+7.1 extends thread 
+Which constructors of Thread class ?
+1. Thread()
+2. Thread(String name)
+
+
+7.2 implements Runnable(Func i/f)
+Which constructors of Thread class ?
+1. Thread(Runnable task)
+2. Thread(Runnable task,String name)
+
+
+3 ways :
+1. create a seaprate class : imple Runnable n pass it's instance
+OR
+2 . Ano inner class
+OR
+3. lambda expression
+
+
+What is mandatory in either of scenarios (extends or implements) ?
+override / implement run() : to supply B.L
+
+
+What will happen ?
+1. extends Thread n don't override run() : no err , do nothing(nop) thrd
+2. implements Runnable  n don't implement run() : javac err
+
+What will happen ?
+Instead of calling start() , run() method is invoked?
+no err , FATAL : no multi threading (seq. execution done by main thread) => loss of concurrency!!!!!!
+
+
+
+Refer to : "regarding Thread's start.txt"
+(popular question) 
+
+Blocking n un blocking triggers
+(refer to diag)
+-------------------------
+
+
+1. Solve practical requirement based on  (Collection + I/O + Threads)
+
+
+Solve : Create a multi threaded application for saving student details in 2 text files(taken from the Map of students ) : (in student_gpa.txt : sorted by gpa & in student_dob.txt : sorted by dob) using 2 different threads , concurrently!
+(refer to a diag : "collection-io-thrds")
+
+1.1 CollectionUtils : sorting methods
+1.2 IOUtils : writeData : text data + buffering
+Chain of I/O streams
+
+1.3 Create runnable tasks (implements scenario)
+1.4 Tester
+
+Threads : 
+main : get sample data , scanner , child thrds(Thread(new DobSorterTask(fileName,map),"dob")
+
+
+dob task : constr , state ,run
+
+gpa task : constr , state ,run
+
+
+
+Objective : Consider joint bank account shared between multiple users/customers.
+Different users : threads
+User 1 : check balance
+User 2 : update balance 
+
+
+2. 
+1. Consider joint account : BankAccount
+inst var : balance
+1.1 update balance(double amount) original balance : 5000
+withdraw amount(500) .... Simulate User's think time(sleep) --- cancel withdraw 
+what should be the balance after updateBal : 5000
+
+1.2 check balance
+return curnt balance
+
+2. Runnable Tasks
+UpdaterTask 
+run() : invoke BankAccount's update balance
+jointAccount.updateBalance(...);
+
+CheckerTask
+run() : invoke SAME BankAccount's check balance
+ jointAccount.checkBalance();
+
+3. main : create single joint acct instance n pass it to these tasks 
+
+Observe n conclude
+
+Problem
+Solution
+refer to : "readme synchronization"
+
+3. ITC

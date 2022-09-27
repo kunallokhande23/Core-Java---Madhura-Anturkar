@@ -1,0 +1,59 @@
+Regarding Association
+
+Association is relationship between two separate classes , using object references.
+Represents HAS-A 
+Why : Code reusability
+
+Association can be one-to-one, one-to-many, many-to-one, many-to-many.
+
+Composition and Aggregation are the two forms of association.
+
+eg : refer to association-aggregation-composition.png
+Association : 
+Owner HAS-A Pet -- Owner feeds a Pet & Pet plays with Owner. 
+Aggregation implies a HAS-A relationship where one entity  can exist independently of the other entity. 
+eg : Class & Student / Bank HAS-A Customer
+class Bank
+{
+  private String name;
+  private String ifsc;
+  private String address;
+ //one to many
+  private Customer[] customers;
+  
+}
+class Customer {
+ private String name;
+ private String address;
+ private Date dob;
+private Bank myBank;
+ 
+} 
+
+Composition (Part Of or Belongs To)
+Pet HAS-A Tail
+It implies a relationship where one entity cannot exist independent of the another entity 
+eg : Human HAS-A  Lungs / Car HAS-A Engine / Person HAS-A Address
+(when parent is deleted , typically child can't exist on its own)
+
+
+
+eg : 
+class Person 
+{  
+   private String firstName,lastName;
+   private Date dob;
+   private String uid;
+    private Address adr;
+   private class Address 
+   {
+     private String street,city,state,country;
+     ....
+   }
+//setter / method
+}
+
+Aggregation is a weaker form of HAS-A relationship than Composition
+
+
+

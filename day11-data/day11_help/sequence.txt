@@ -1,0 +1,103 @@
+1. Collection Framework Overview
+ What is Collection framework ?
+Ready made / standard implementation of DSA + ready made imple. for List ,Set Map
+
+Collection => collection of refs
+
+Why ?
+dyn growable D.S
+insert / delete / search /sort : ready made imple for most of the requirements.
+
+pkg : java.util
+java.lang.Iterable<T> : T : type of the element of Collection
+Method : public Iterator<T> iterator() : explicit iteration
+implicit iteration : for-each loop
+Can you attach for-each loop to
+1. List imple classes (ArrayList, LInkedList,Vector)
+2. Set imple classes (HS,LHS,TS)
+3. Map imple classes(HM,LHM,TM)
+
+Ans : 1 n 2
+
+sub i/f of Iterable : Collection<E> 
+eg : Collection<Emp> emps=.....
+emps.add(e1);//e1 : Emp
+emps.add(new Date());//javac err
+
+Are there any concrete imple classes of Collection i/f ? NO
+why ? DOES NOT impose any specific behavior
+Methods : add , addAll, remove , removeAll, retainAll, contains....
+
+Sub i/fs of Collection i/f : List<E> , Set<E>
+
+List<E> : ordered collection(i.e remembers the order of insertion) , not sorted , dups alloweed , supports index based ops , nulls are allowed
+
+Imple classes of List : AL ,LL, Vector
+
+ArrayList : 
+internal D.S : growable array(supports dyn mem allocation)
+Ctors for creating AL<E>
+1. AL() : size=0, capa =10
+l1.add(e1);l1.add(e2)......
+l1.add(e11);
+2. AL(int initCapa) : size=0, capa =initCapa
+3. AL(Collection<E> coll) : populated AL
+
+size = coll.size()    capa = as per JVM spec.(min size)
+
+
+
+
+
+
+
+
+
+
+
+Enter : List implementation classes : ArrayList
+
+Test basic API using Integer List n then apply it to vehicle showroom scenario.
+
+Objectives 
+
+1. Create empty AL to store vehicles in a showroom
+
+2. Accept  vehicle details from user n store it in AL(along with validation rules)
+No dups please !
+
+2.5 After testing vehicle registration in showroom , add sample data to store 5 vehicles in the showroom.
+Create a separate class : utils.CollectionUtils
+add a static method to return populated list of vehicles (5)
+
+3. Display all vehicle details
+Using for-each & also using Iterator(later)
+
+4. Fetch Vehicle details from AL
+i/p : PK (chasis no)
+o/p : in case of success : display vehicle details o.w throw custom exception
+
+5. Update Vehicle price
+i/p : chasis no & new price
+o/p : in case of success : update vehicle details o.w throw custom exception
+
+
+6. Delete vehicle details
+i/p : chasis no
+
+7. Apply discount to all vehicles manufactured before a specific date n color
+i/p :  date n color n discount
+Steps
+1. Ask yourself : is searching criteria based upon PK ? YES ---contains , indexOf ...
+NO -- for loop / for each /Iterator : for -each
+2. checks  : filtering
+3. updation
+
+
+
+8. Display vehicle chasis no n price  , of all the vehicles dispatched to a specific city
+i/p : city
+lab work.
+
+100. Exit
+

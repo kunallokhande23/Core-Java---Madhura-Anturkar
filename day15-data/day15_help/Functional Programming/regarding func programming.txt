@@ -1,0 +1,29 @@
+Regarding functional programming
+
+
+What is functional programming ?
+
+Functional programming is the way of writing s/w applications that uses only pure fuctions & immutable values.
+
+Main concepts of FP are
+1. Pure functions & side effects
+2. Referential transperency
+3. First class functions & higher order funcs.
+4. Anonymous functions
+5. Immutability
+6. Recursion & tail recursion
+7. Statements
+8. Strict & Lazy evaluations
+9. Pattern Matching
+10 Closures
+
+Why Functional Programming paradigm
+Elegance and simplicity
+Easier decomposition of problems
+Code more closely tied to the problem domain
+
+Through these , one can achieve : 
+
+Straightforward unit testing
+Easier debugging
+Simple concurrency

@@ -1,0 +1,56 @@
+Today's topics
+Complete pending topics
+Generics
+Overview of Collection Framework
+Enter List.
+
+1. Generics
+What is it ? : Paramterized types
+Applicable for : classes , interfaces, enums , methods , constrs.
+
+Why ? 
+To Add type safety at the compile time
+1. Avoids explicit type casting
+2. Type mismatch errors are caught at the compile time
+
+
+2. Collection Framework Overview
+
+Enter : List implementation classes : ArrayList
+
+---------------------Tomorrow's work-----------------------
+
+Test basic API using Integer List n then apply it to vehicle showroom scenario.
+
+Objective 
+
+1. Create empty AL to store vehicles in a showroom
+
+2. Accept  vehicle details from user n store it in AL(along with validation rules)
+No dups please !
+
+2.5 After testing vehicle registration in showroom , add sample data to store 5 vehicles in the showroom.
+
+3. Display all vehicle details
+Using for-each & also using Iterator(later)
+
+4. Fetch Vehicle details from AL
+i/p : PK (chasis no)
+o/p : in case of success : display vehicle details o.w throw custom exception
+
+5. Update Vehicle price
+i/p : chasis no & new price
+o/p : in case of success : update vehicle details o.w throw custom exception
+
+
+6. Delete vehicle details
+i/p : chasis no
+
+7. Apply discount to all vehicles manufactured before a specific date n category
+i/p :  date n category n discount
+
+
+8. Display vehicle chasis no n price  , of all the vehicles dispatched to a specific city
+i/p : city
+
+100. Exit

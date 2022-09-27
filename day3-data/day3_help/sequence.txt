@@ -1,0 +1,120 @@
+Today's Topics
+Revision
+Class Programming , object creation ,reference types : with memory pics
+Overview of  GC
+Passing parameters (lab work)
+static keyword revise
+revise Arrays
+
+
+Revise
+
+solve :
+Box b1=new Box(1,2,3);
+Box b2=b1;
+Box b3=b1;
+b1=b2=b3=null;//How many objects are marked GC ? 1
+System.gc();/req to JVM for activating GC thread
+
+Pointers vs java references
+
+Similarity -- Pointer & reference --hold an address to the object created on heap.
+Difference -- To add robustness to the language ,
+pointer arithmatic is not allowed in java.
+
+reference --- holds internal representation of address --
+
+eg : 
+int data =100;
+data++;
+Box b1=new Box(1,2,3);
+b1++;//javac err
+b1 += 10;//javac err
+String s=new String("hello");
+s++;//javac err
+
+
+1. Create Cubes
+eg : sop("Enter side of a cube");
+Box cube=new Box(sc.nextDouble());//javac err
+soln : add another parametrized ctor
+Box.java :
+public Box(double side)
+{
+// width=depth=height=side;
+  this(side,side,side);
+}
+
+2. Add a method to Box class to compare equality of 2 boxes & test it
+Meaning : 2 boxes are same : iff dims are same
+eg : sop("Enter box 1 dims")
+Box b1=new Box(....);
+sop("Enter box 2 dims")
+Box b2=new Box(....);
+sop(b1.isEqual(b2)?"Same":"Different");
+
+Add new method : Box
+public boolean isEqual(Box anotherBox)//this=b1 , anotherBox=b2 : copy of refs
+{
+ ........
+}
+
+
+3. Add a method to Box class to return a new Box with modified offset dims & test it with the tester.
+eg : Box b1=new Box(...);//10 20 30
+Box b2=b1.createNewBox(.....); 3 -4 5 
+//b2 --> box2 --> 13 16 35
+
+Regarding static keyword 
+
+
+Arrays 
+Regarding Arrays
+refer -- Java Tut slides No  29
+In Java, arrays are full-fledged objects. Like objects, arrays are dynamically created & stored on the heap. 
+
+Arrays (like any other object) are  associated with the class. All arrays of the same dimension and type have the same class. The length of an array does not play any role in establishing the array's class. For example, an array of three ints has the same class as an array of three hundred ints.([I) The length of an array is considered part of its instance data.
+
+eg : The class name for single dimension array of ints is "[I". The class name for a three-dimensional array of bytes is "[[[B". The class name for single dimension array of booleans is "[Z"
+
+Array size(length) is fixed.Implicit super class of array is java.lang.Object.
+
+
+2.1 Create Array of primitive types
+
+Objective -- Accept no of data samples(of type double) from User(using scanner)
+Create suitable array & display it using for-loop , to confirm default values.
+
+Accept data from User(scanner) & store it in the array.
+Display array data using  for loop.
+
+Display array data using for-each loop
+
+for-each loop(enhanced for loop)
+syntax
+eg : Display array data using for-each loop
+
+Important statement
+for-each loop Works on a copy of array element.
+
+for-each limitations
+1. Can only iterate from 1st elem to last elem , with step size +1
+2. Works on a copy of array elems
+(can't be used for modifying array elems).
+
+
+2.2 Array of references
+
+Add Box class into "com.app.core"
+Create a tester class  : TestBoxArray in package  "tester"
+
+Objective : Ask user(client) , how many boxes to make ?
+Create suitable array to hold Box type refs.
+
+Accept Box dims 
+
+Store these details suitably.
+1. Display using single for-each loop, box dims n volume
+
+2. Double box width for all boxes having volume > 100.(USE for-each & solve this)
+(lab work)

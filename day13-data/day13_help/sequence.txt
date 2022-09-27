@@ -1,0 +1,73 @@
+Today's Topics
+Sorting in Java 
+Iterators n ListIterators
+ArrayList Vs LinkedList
+Set interface & implementation classes
+
+
+1.
+Sorting in Java
+
+Which are 2 ways of sorting in Java ? 
+Natural ordering : Internal / implicit => sorting criteria is kepy within UDT (or within type of List/Set)
+It's consistent with equals
+If ref1.equals(ref2) = true , then ref1.compareTo(ref2) =0
+
+Custom ordering -- External / explicit , sorting critria 
+Use case : When you need multiple sorting criteria : that too w/o touching core class (UDT :eg : Customer)
+keep sorting criteria : external 
+3 ways  -- creating a separate  class OR ano inner class OR lambda expression
+
+
+2.1  Sort vehicles as per chasis no (asc order)
+Natural Ordering
+
+2.2  Sort vehicle as per price (desc order)
+Custom ordering
+
+2.3  Sort vehicles as per date n price 
+Custom ordering
+
+
+Can you use anonymous inner class (a special variety of inner class) , to reduce the code , in above example ? YES
+2.2  Sort vehicle as per price (desc order)
+Custom ordering
+Step 1
+Collections.sort(list,new Comparator<Vehicle>()
+{ //ano inner cls begin 
+ @Override
+ public int compare(Vehicle v1,Vehicle v2)
+ {.....}
+}//end
+);
+
+new Comparator<Vehicle>() => instance of the ano innner class that imple Comparator<Vehicle>
+
+
+2. Iterator , ListIterator
+
+Iterable<T> i/f
+public Iterator<T> iterator();
+
+java.util.Iterator<T> => explicit iterator
+impl : for-each loop
+3 methods of Iterator
+public boolean hasNext()
+public T next()
+public void remove()
+
+Exceptions associated with Iterators n List
+Refer : collections readme
+
+3. LinkedList
+Refer to : Collection Framework Overview diagram.
+diagrams : Types of linked lists , node , insert n delete operations
+Refer to readme
+Solve ready code samples.
+Compare ArrayList Vs LinkedList
+
+
+4. Enter Sets
+refer : sets overview
+HashSet , LinkedHashSet , TreeSet
+

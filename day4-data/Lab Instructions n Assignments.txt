@@ -1,0 +1,120 @@
+Day 1
+0. Download n extract today's contents.
+
+1. Please revise today's work , using the "sequence.txt"
+
+2. Go through day1/code : all code samples
+
+3. Solve ready code samples n revise completely.
+Main revision topics  : Java control structures , loops, primitive types , automatic n forced conversions(type casting)
+operators , basics of class programming  , classes , objects , constructor , this keyword.
+(refer to "regarding class n object.txt")
+For unicode : refer to "day1-data\day1_help\readmes\regarding unicode"
+
+4. No hands-on assignment for today.
+
+Day 2
+1. Refer to today's sequence
+refer : day2-data\code without IDE\day2
+n revise packages , access specifiers
+
+2. import day2.1 in your eclipse workspace n revise code with mem pics.
+(refer : whiteboard-mem-pics.png)
+
+DO NOT copy n run below  code in IDE.
+You have to go through the code n answer.
+
+3. Solve Tank assignment along with memory picture.
+
+What will be the output ?
+
+class Tank {
+  private int level;
+  Tank(int l)
+   {
+     level=l;
+   }
+  public void setLevel(int level1)
+  {
+    level=level1;
+  }
+  public int getLevel()
+  {
+    return level;
+  }
+}	
+
+public class Assignment {
+  public static void main(String[] args) {
+    Tank t1 = new Tank(10);
+    Tank t2 = new Tank(20);
+     s.o.p("1: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//10 20
+    t1 = t2;//1st tank obj is marked GC
+    s.o.p("2: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//20 20
+    t1.setLevel(27);
+     s.o.p("3: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//27 27
+    t2.setLevel(t1.getLevel()+10);
+     s.o.p("4: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//37 37
+  }
+}
+
+4. What will happen (solve ready code samples )
+day2-data\day2_help\params_passing
+4.1 TestParamPassing1.java
+4.2 TestParamPassing1.java
+
+
+Day 3
+1. import day3.1 , in your workspce , to revise
+1.1 references , obj creation n class loading , with mem pics. , methods passing reference , returning ref.
+1.2 static keyword usage
+1.3 arrays
+
+2. Solve
+2.1 Continue with Box array example
+Can you double box width for all boxes having volume > 100 , using for-each ?
+If yes : try it.
+
+3. Fresh assignment
+
+Create a  class Point2D  , under package "com.cdac.geometry" for representing a point in x-y co-ordinate system.
+
+3.1 Create a parameterized constructor to accept x & y co-ords.
+
+3.2 Add public String show()) --to return point's x & y co-ords
+
+3.3 Add isEqual method to Point2D class : boolean returning method : must return true if both points are having same x,y co-ords or false otherwise.
+3.4 Add a method , calculateDistance , to calc distance between 2 points
+Hint : use distance formula.
+
+3.5  Create a driver  class(for UI)  , in the "tester" package "TestPoints" , with main(..)
+Ask user , how many points to plot? :
+Create suitable array.
+3.6  Accept x,y co-ordinates for all the points n store it suitably.
+3.7  Display x,y co-ordinates of all the points plotted so far ,using for-each loop.
+3.8  Accept 2 indices from user .
+Find out if the points at these indices are same or different (Hint : isEqual)
+Print the message accordingly. 
+If points are not same , display distance between these 2 points.
+
+Day 4
+No new assignments !
+1. Try to Complete all pending assignments, today itself.
+
+2.import day4.1 into your workspace n revise along with today's sequence n readmes 
+2.1 Inheritance n it's  types 
+2.2 Constructor invocation in the inheritance hierarchy
+2.3 Polymorphism n it's  types 
+2.4 method overriding rules to achieve run time poly.
+2.5 @Override annotation
+2.6 Applying it to a real case study : Event organizer app.
+
+3. Answer this
+When you call : 
+System.out.println(ref);
+How does it actually invoke : System.out.println(ref.toString());
+Hint : refer to javadocs of PrintStream : println(Object ref) method

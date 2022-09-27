@@ -1,0 +1,6 @@
+What are the rules for naming variables in java?
+
+Answer:
+All variable names must begin with a letter of the alphabet, an underscore ( _ ), or a dollar sign ($). Can't begin with a digit.  The rest of the characters may be any of those previously mentioned plus the digits 0-9.
+
+The convention is to always use a (lower case) letter of the alphabet. The dollar sign and the underscore are discouraged. 

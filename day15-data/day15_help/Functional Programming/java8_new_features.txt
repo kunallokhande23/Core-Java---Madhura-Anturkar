@@ -1,0 +1,56 @@
+1. Addition of "default" keyword to add default method implementation ,  in interfaces.
+
+Java 8 enables us to add non-abstract method implementations to interfaces by utilizing the default keyword. This feature is also known as Extension Methods. 
+
+Why default keyword ?
+1. To maintain backward compatibility with earlier Java SE versions
+2. To avoid implementing new functionality in all implementation classes.
+eg : Java added in Iterable<T> interface
+default void forEach(Consumer<? super T> action) -- as a default method implementation
+
+eg :
+
+interface Formula {
+    double calculate(double a);//public n abstract
+	//public 
+    default double sqrt(double a,double b) {//public 
+        return Math.sqrt(a+b);
+    }
+}
+
+In case of ambiguity or to refer to def imple. from i/f -- use InterfaceName.super.methodName(...) syntax
+
+2  Can add static methods in java interfaces --- It's a better alternative to writing static library methods in helper class(eg --Arrays or Collections)
+
+Such static methods can't be overridden in implementation class.
+BUT can be re-declared.
+
+They have to be invoked using interface name , even in implementation or non implementation classes.(otherwise compiler error)
+
+3. Functional Interface
+
+ ---An interface which has exactly single abstract method(SAM)  is called functional interface.
+eg Runnable,Comparable,Comparator,Iterable,Consumer,Predicate,Supplier....
+New annotation introduced -- @FunctionalInterface
+(since Java SE 8)
+Functional i/f references can be substituted by lambda expressions, method references, or constructor references.
+
+Solve --  Is following valid functional interface ?
+public interface A { double calc(int a,int b);} :  YES
+public interface B extends A {} : YES (SAM : calc)
+public interface C extends A { void show();} :NO ,  abstract methods : calc , show 
+public interface D {} --NO ---it's a marker i/f
+public interface E extends A {default void show(){}
+static void test() {...}
+} --YES , SAM : calc
+
+
+
+4. Lambda Expressions
+
+Objective -- Perform add/subtract/multiply/divide ...  operations on 2 double i/ps 
+& return result.
+
+How ?
+
+refer to readme of lambda expressions.

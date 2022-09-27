@@ -1,0 +1,126 @@
+Today's Topics
+Continue with strings , StringBuilder
+Date/Time handling in Java 
+Vehicle showroom assignment
+overriding of equals method
+var-args
+Java Enums
+
+
+1. Solve
+
+String s="Hello";//String class loaded n vtable created in method area(meta space), SCP : "Hello"
+s.toUpperCase();//non literal string : outside SCP ,: "HELLO" :  marked for GC
+s.concat("12345");//SCP : "12345" , outside SCP : Hello12345 : marked for GC
+sop(s);//"Hello"
+String s1="testing strings";//literal string : "testing strings" , "Hello" , "12345"
+String s2=new String(s1);//non literal : "testing strings"
+sop(s1==s2);//false
+sop(s1.equals(s2));//true
+String s3="He"+"llo";//SCP : "testing strings" , "Hello" , "12345" ,"He" , "llo"
+String s4="He".concat("llo");//non literal string : "Hello" : outside SCP
+String s5="hello";//SCP : "testing strings" , "Hello" , "12345" ,"He" , "llo", "hello"
+sop(s==s3);//true
+sop(s==s4);//false
+sop(s==s5);//false
+
+
+2. Solve (Lab work)
+public static void main(String[] args) {
+		String s1="hello";
+		String s2="hello";
+		String s3=new String(s1);
+		String s4=s3.intern();
+		String s9=new String(s1.toUppercase());
+                           String s10=s9.intern();
+		String s5="he"+"llo";
+		String s6="he".concat("llo"); 
+		System.out.println(s1==s2);
+		System.out.println(s1==s3);
+		System.out.println(s1==s4);
+		System.out.println(s1==s5);
+		System.out.println(s1==s6);
+		String s7=new String("Hello");//how many string objects are created in this line? : 
+		String s8=new String("hello");//how many string objects are created in this line? : 
+
+	}
+
+1. String class API
+
+2. StringBuilder API
+
+3.Date Time Handling (refer to : readme_strings_date_varargs.txt)
+
+java.util.Date : represents Date n time both , till precision msec.
+Constrs : 
+Date() : Creates date class instance : current date n time 
+Date(long msec) : Creates date class instance : that represents date n time , of msecs elapsed after Epoch(1st Jan 1970)
+Methods : toString , before ,after,compareTo,equals
+eg : d1.compareTo(d2) :  -1 => d1 before d2
+0 => d1.equals (d2)
+1 => d1 after d2
+------------------------------------
+
+Objective : Accept vehicle details : chasisNo(string) : unique, color(string) , price(double) , manufactureDate(Date)
+
+What is a relationship between Vehicle n chasisNo(string) : unique, color(string) , price(double) , manufactureDate(Date) ? HAS-A
+
+How will you accept manufactureDate from user ?
+
+
+Steps
+1. Create instance of a class : java.text.SimpleDateFormat
+
+2. Parsing (string --> Date) API 
+
+3. Formatting API (Date --> string) 
+
+
+var-args
+refer to :  readme_strings_date_varargs.txt
+
+
+Java Enums :
+refer to : day8-data\day8_help\enums\regarding enums.txt
+
+Replace String color by Color enum.
+refer to valueOf n values methods
+Added the validation for color
+color must be one of these  :  WHITE, GREY, SILVER, BLACK, RED
+
+
+Objective : Add Vehicle details
+
+
+Objective : Showroom Management system , which will keep track of vehicles added in the showroom.
+1. Prompt showroom capacity
+Create suitable array.
+Options
+1. Add Vehicle to the showroom.
+Accept data --validate all i/ps --success -- add vehicle
+o.w : throw exc (built in / custom exc)
+
+2. Display all vehicle details
+
+10. Exit
+
+Add  validation rules
+4.1 No dup vehicles should be added in the showroom
+4.2 manufactureDate : must be in current financial year(1st Apr 2022 ---31st Mar 2023)
+4.3 Vehicle color must be available
+4.4 price : min 10000 , max 100000
+
+
+
+
+----------------------------
+
+Sample data for vehicles
+12345 red 456789 2-10-2021 petrol
+12340 blue 456780 22-10-2021 diesel
+12350 white 456790 2-4-2021 ev
+12347 black 456789 12-8-2021 petrol
+
+
+
+

@@ -1,0 +1,146 @@
+Today's Topics
+
+Debugging
+Revision
+Continue with exception handling
+String Handling
+Object's equals method
+runtime polymorphism whiteboard
+
+Revise
+
+What is exception : run time error , currently detected by JVM's main thread
+
+
+Why exception handling ?
+1. To continue with the program execution , even after run time errs(eg :invalid inputs,B.L failures,validation failures, file not found, invalid casting....)
+2. To separate B.L (try block) from error handling logic(catch)
+3. To avoid un necessary checking .
+
+Flow 
+Eg. Trigger : try {
+int[] data={1,2,3,4};
+sop(data[4]);
+sop("end of try ...");
+} catch (AOBexc e)
+{
+  sop("in catch");
+}
+sop("cntd");
+
+
+ ---> JVM chks type of the err --->throw new AOBExc("Index 4 out of bounds for length 4");
+
+JVM chks ---matching exc handler(catch) exists -- NO --supplies a def handler --Aborts : prints --name of exc , err mesg , stack trace (location details)
+
+YES --try block aborts --JVM invkes MATCHING catch block --- code continues..
+
+
+syntax of "throw" keyword
+throw Throwable instance;
+currently used by JVM to raise system excs(eg : AE, AOBExc, NPE,ClassCastExc.....,IOException, SocketExc, SQLExc....)
+
+
+Inheritance hierarchy of exc handling classes
+Throwable <--- Error , Exception
+Exception <-----RunTimeException <----un checked excs (eg : AE, AOBExc, NPE,ClassCastExc.....)
+Exception <----- IOException, SocketExc, SQLExc , InterruptedException : checked excs
+
+
+try-catch keywords
+try {....} : for B.L
+catch (Exception e) : for exc handling
+
+which of the following are legal ? 
+try {....} catch (AE e ){..} : legal
+try {....} : javac err
+try {....} catch (AE e ){..}  catch (NPE e) {..} catch(Exception e) {catch-all block} : legal
+try {....} catch (AE | NPE| NFE e ){..}  catch(Exception e) {catch-all} :
+
+checked vs un checked exceptions
+who doesn't differentiate between checked vs un checked exceptions --JVM
+
+who differentiates n how ? : javac
+Important statement : Javac forces handling of checked exceptions upon the programmer
+
+2 ways of satisfying the javac
+
+1.actual handling : try-catch
+2. throws keyword
+
+o.w : javac err
+
+throw vs throws
+throw :keyword used to  raise the  exception(JVM : system/built-in excs , Prog : custom exc), appears in method def.
+syntax : throw Throwable instance;
+
+throws : meant for javac , appears in method declaration 
+eg : public void show(....) throws IOException,InterruptedException
+{
+ ......
+}
+Meaning : show() : may throw the exc(possibility) , curnt method is NOT handling the exc.
+so its' caller should handle.
+
+When is adding throws keyword mandatory ?  : unhandled(no try-catch) n checked excs
+o.w : javac err
+-----------------------
+
+API : refer to readme
+
+
+3. finally : always executed(i.e in case of no exc as well as excs/ method rets) except : JVM termination(System.exit(0))
+typical use case  : cleaning up of non java resources(eg : File handle, socket , db connection, Std in)
+
+OR
+try-with-resources
+eg : try(Scanner sc=new Scanner(System.in);
+ Connection cn=....;//DB connection opening
+FileInputStream in=....//opening bin file 
+)
+{
+.....
+} //in.close,cn.close ,sc.close()
+catch(Exception e)
+{
+ ....
+}
+Can you open ANY Resource(class instance) using try-with-resources block 's header?  NO
+Only those class instances : whose class has imple . : java.lang.AutoCloseable
+i/f method
+public void close() throws Exception
+---------------------------------------
+
+Custom exceptions
+objective : Accept speed of a vehicle from user (scanner) --highway
+min speed : 30
+max speed : 80
+
+In case of speed outside the range --Prog will have to detect the err --create instance of user defined exc class --explicitly throw custom exc to the code. The alteration in flow will be managed by JVM.
+
+
+Steps
+1.Create custom exception class : extends Throwable/Error/Exception/RuntimeExc....
+eg : public class SpeedOutOfRangeException extends Exception{}
+1.1  Add parameterized constr : to init err mesg
+
+2. Create a separate class  eg :  SpeedUtils --
+add a static method for validation the speed
+
+3. Create Tester : UI --scanner --accept the speed n simply call validateSpeed of the SpeedUtils  class
+-------------------------
+
+4. String Handling
+4.1 Immutability of strings
+4.2 == vs equals
+4.3 literal vs non literal string
+4.4 API
+----------------------Pending ---------------------------
+5. Date Time Handling 
+
+6. var-args
+
+7. equals
+
+
+

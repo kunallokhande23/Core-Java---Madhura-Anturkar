@@ -1,0 +1,47 @@
+A race condition is a special condition that may occur inside a critical section. A critical section is a section of code that is executed by multiple threads and where the sequence of execution for the threads makes a difference in the result of the concurrent execution of the critical section.
+
+When the result of multiple threads executing a critical section may differ depending on the sequence in which the threads execute, the critical section is said to contain a race condition. 
+
+Race condition means  that the threads are racing through the critical section, and that the result of that race impacts the result of executing the critical section.
+
+Critical Sections
+Running more than one thread inside the same application does not by itself cause problems. The problems arise when multiple threads access the same resources. For instance the same memory (variables, arrays, or objects), systems (databases, web services etc.) or files.
+
+In fact, problems only arise if one or more of the threads write to these resources. It is safe to let multiple threads read the same resources, as long as the resources do not change.
+
+Here is a critical section Java code example that may fail if executed by multiple threads simultaneously:
+
+  public class Counter {
+
+     protected long count = 0;
+
+     public void add(long value){
+         this.count = this.count + value;
+     }
+  }
+Imagine if two threads, A and B, are executing the add method on the same instance of the Counter class. There is no way to know when the operating system(scheduler) switches between the two threads. The code in the add() method is not executed as a single atomic instruction by the Java virtual machine. Rather it is executed as a set of smaller instructions, similar to this:
+
+Read this.count from memory into PC register.
+Add value to PC register.
+Write register to memory.
+Observe what happens with the following mixed execution of threads A and B:
+
+       this.count = 0;
+
+   A:  Reads this.count into a register (0)
+   B:  Reads this.count into a register (0)
+   B:  Adds value 2 to register
+   B:  Writes register value (2) back to memory. this.count now equals 2
+   A:  Adds value 3 to register
+   A:  Writes register value (3) back to memory. this.count now equals 3
+The two threads wanted to add the values 2 and 3 to the counter. Thus the value should have been 5 after the two threads complete execution. However, since the execution of the two threads is interleaved, the result ends up being different.
+
+In the execution sequence example listed above, both threads read the value 0 from memory. Then they add their individual values, 2 and 3, to the value, and write the result back to memory. Instead of 5, the value left in this.count will be the value written by the last thread to write its value. In the above case it is thread A, but it could as well have been thread B.
+
+Race Conditions in Critical Sections
+The code in the add() method in the example earlier contains a critical section. When multiple threads execute this critical section, race conditions occur.
+
+More formally, the situation where two threads compete for the same resource, where the sequence in which the resource is accessed is significant, is called race conditions. A code section that leads to race conditions is called a critical section.
+
+Preventing Race Conditions
+To prevent race conditions from occurring you must make sure that the critical section is executed as an atomic instruction. That means that once a single thread is executing it, no other threads can execute it until the first thread has left the critical section.

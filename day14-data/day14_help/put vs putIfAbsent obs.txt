@@ -1,0 +1,23 @@
+Observation : Using Map's put(...)
+
+added null
+added null
+added null
+added null
+added null
+added BankAccount [acctNo=10, customerName=Rama, type=CURRENT, creationDate=2021-01-01, balance=16000.0]
+size 5
+{50=BankAccount [acctNo=50, customerName=Raj, type=SAVING, creationDate=2019-11-21, balance=17000.0], 101=BankAccount [acctNo=101, customerName=Mihir, type=SAVING, creationDate=2020-01-01, balance=15000.0], 55=BankAccount [acctNo=55, customerName=Anish, type=FD, creationDate=2020-06-25, balance=150000.0], 25=BankAccount [acctNo=25, customerName=Riya, type=SAVING, creationDate=2019-04-01, balance=13000.0], 10=BankAccount [acctNo=10, customerName=Ketan, type=LOAN, creationDate=2022-01-01, balance=12000.0]}
+
+------------------------------
+Observation : Using Map's putIfAbsent(...)
+
+added null
+added null
+added null
+added null
+added null
+added BankAccount [acctNo=10, customerName=Rama, type=CURRENT, creationDate=2021-01-01, balance=16000.0]
+size 5
+{50=BankAccount [acctNo=50, customerName=Raj, type=SAVING, creationDate=2019-11-21, balance=17000.0], 101=BankAccount [acctNo=101, customerName=Mihir, type=SAVING, creationDate=2020-01-01, balance=15000.0], 55=BankAccount [acctNo=55, customerName=Anish, type=FD, creationDate=2020-06-25, balance=150000.0], 25=BankAccount [acctNo=25, customerName=Riya, type=SAVING, creationDate=2019-04-01, balance=13000.0], 10=BankAccount [acctNo=10, customerName=Rama, type=CURRENT, creationDate=2021-01-01, balance=16000.0]}
+

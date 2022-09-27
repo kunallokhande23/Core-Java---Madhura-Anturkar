@@ -1,0 +1,63 @@
+Query : why overrding form of the method can't reduce visibility ?
+eg : 
+A.java
+package p1;
+public class A
+{
+ public void show() {...}
+}
+
+B.java
+ public class B extends A
+{
+  void show() {...}  //javac err
+}
+
+Why ?
+package tester;
+public class Test : main
+A a1=new A();
+a1.show(); 
+a1=new B();
+a1.show();
+
+------------------------------
+Solve this. What will happen ?
+package p1;
+public class MySuperClass {
+	static {
+		System.out.println(3);
+	}
+	{
+		System.out.println(4);
+	}
+}
+package p1;
+
+public class TestInstanceInitBlock extends MySuperClass {
+	private int i;
+
+	public static void main(String[] args) {
+		System.out.println("in main");
+		TestInstanceInitBlock t1 = new TestInstanceInitBlock();
+	//	TestInstanceInitBlock t2 = new TestInstanceInitBlock(10);
+	}
+
+	static {
+		System.out.println(1);
+	}
+	{
+		System.out.println(5);
+	}
+	
+
+	public TestInstanceInitBlock() {
+		System.out.println(2);
+	}
+
+	public TestInstanceInitBlock(int i) {
+		super();
+		System.out.println(6);
+		this.i = i;
+	}
+}

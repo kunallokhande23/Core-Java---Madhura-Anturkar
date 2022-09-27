@@ -1,0 +1,79 @@
+Method overriding n exception handling
+Overriding form of the method(in sub class) can't add any NEW or BROADER checked excpetions
+Confirm with examples.
+eg :
+1.  package p1;
+class A
+{
+  void show()
+  {
+    sop("1");
+  }
+}
+
+class B extends A
+{
+  @Override
+  void show() throws InterruptedException //javac error : can't add any NEW checked excpetions
+  {
+    sop("2");
+  }
+}
+
+In Tester 
+A ref=new B();
+ref.show();
+
+
+2.  package p1;
+class A
+{
+  void show() throws IOException
+  {
+    sop("1");
+  }
+}
+
+class B extends A
+{
+  @Override
+  void show() //no javac error
+  {
+    sop("2");
+  }
+}
+
+3.  package p1;
+class A
+{
+  void show() throws IOException
+  {
+    sop("1");
+  }
+}
+
+class B extends A
+{
+  @Override
+  void show() throws FileNotFoundException// no javac error : FileNotFoundException IS A IOException
+  {
+    sop("2");
+  }
+}
+4.  package p1;
+class A
+{
+  void show() throws IOException
+  {
+    sop("1");
+  }
+}
+
+class B extends A
+{
+  @Override
+  void show() throws Exception //javac err : Exception is super cls : can't add any BROADER chked excs.
+  {
+    sop("2");
+  }
+}

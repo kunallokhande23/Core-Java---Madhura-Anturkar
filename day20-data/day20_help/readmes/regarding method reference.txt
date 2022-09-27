@@ -1,0 +1,124 @@
+Method References in Java 8
+
+Method reference is a shorthand , more readable notation of a lambda expression to call a method. 
+Can all lambda expressions be concised  into method reference ? NO
+
+eg : 
+If your lambda expression is like this:
+
+s -> System.out.println(s)
+then you can replace it with a method reference like this:
+(since we are directly calling an existing method in a lambda expression , we can refer to the method itself)
+
+System.out::println
+The :: operator is used in method reference to separate the class or object from the method name
+
+Four types of method references
+1. Method reference to an instance method of an object – object::instanceMethod
+2. Method reference to a static method of a class – Class::staticMethod
+3. Method reference to an instance method of an arbitrary object of a particular type – Class::instanceMethod
+4. Method reference to a constructor – Class::new
+
+1. Method reference to an instance method of an object
+@FunctionalInterface 
+interface MyInterface{  
+    void display();  
+}  
+public class Example {  
+    public void myMethod(){  
+	System.out.println("Instance Method");  
+    }  
+    public static void main(String[] args) {  
+	Example obj = new Example(); 
+              // lambda expression :
+//What is this lambda expression doing ? It's simply calling an existing method. In this case can it be further shortened by a method ref?
+	MyInterface ref = () -> obj.myMethod();
+              ref.display();
+	// Can you replace lambda expression by Method reference here ? (using the object of the class) : YES
+	MyInterface ref2 = obj::myMethod; 
+              ref2.display();
+    }  
+}
+
+2. Method reference to a static method of a class
+import java.util.function.BiFunction;  
+class Multiplication{  
+   public static int multiply(int a, int b){  
+	return a*b;  
+   }  
+}  
+public class Example {  
+   public static void main(String[] args) {  
+	BiFunction<Integer, Integer, Integer> product = Multiplication::multiply;  
+	int pr = product.apply(11, 5);  
+	System.out.println("Product of given number is: "+pr);  
+   }  
+}
+
+3. Method reference to an instance method of an arbitrary object of a particular type
+
+import java.util.Arrays;
+public class Example {  
+
+   public static void main(String[] args) {  
+	String[] stringArray = { "aa", "bb", "cc", "dd", "ee"};
+	/* Method reference to an instance method of an arbitrary 
+	 * object of a particular type
+	 */
+//Arrays.sort(stringArray, (s1,s2)->s1.compareTo(s2));
+	Arrays.sort(stringArray, String::compareTo);
+	Arrays.stream(stringArray).forEach(System.out::println);
+   }  
+}
+
+4. Method reference to a constructor
+@FunctionalInterface 
+interface MyInterface{  
+    Hello display(String say);  
+}  
+class Hello{  
+    public Hello(String say){  
+        System.out.print(say);  
+    }  
+}  
+public class Example {  
+    public static void main(String[] args) { 
+    	//Method reference to a constructor
+        MyInterface ref = Hello::new;  
+        ref.display("Hello World!");  
+    }  
+}
+
+4.1
+@FunctionalInterface
+interface MyFunctionalInterface {
+    
+    Student getStudent();
+}
+class Student {
+    
+    private String name;
+    
+    public String getName() {
+        return name;
+    }
+ 
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+Following example uses  constructor reference.
+
+public class ConstructorReferenceDemo {
+    
+    public static void main(String[] args) {
+        
+        MyFunctionalInterface ref = Student::new;
+        
+        Supplier<Student> s1 = Student::new;// Supplier Example
+        Supplier<Student> s2 = () -> new Student();// equals to above line
+            
+        System.out.println(ref.getStudent());//Student class toString() call
+        System.out.println(s1.get());//Student class toString() call
+    }
+}

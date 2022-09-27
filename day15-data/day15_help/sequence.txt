@@ -1,0 +1,351 @@
+Today's Topics
+
+Revision
+Map Revision n CRUD operations
+New Features : Java 8 onwards
+Java 8 Date/Time Handling API
+More generic syntax
+Java 8 new Features
+
+
+Maps Overview
+
+HashMap<K,V> hm=new HashMap<>();
+hm.put(k1,v1);........hm.put(k10,v10);
+JVM invokes --k1.hashCode() --passes it thro' internal JVM supplied hashing func -- derives B ID
+chks empty or non empty
+empty -- inserts entry (k1,v1) directly as a node in the SLL (hash,k1,v1,next:null) -- rets null
+
+hm.put(k2,v2);
+JVM invokes --k2.hashCode() --passes it thro' internal JVM supplied hashing func -- derives B ID
+chks empty or non empty
+empty -- inserts entry (k2,v2) directly as a node in the SLL (hash,k2,v2,next:null) -- rets null
+
+hm.put(k2,v100);
+JVM invokes --k2.hashCode() --passes it thro' internal JVM supplied hashing func -- derives B ID
+chks empty or non empty
+non empty -- k2.equals(k2) --true --dup key is detected --- replaces v2 by v100 --rets v2
+
+sop(hm);//{k1=v1, k2=v100}
+
+Refer to Map API
+
+1. Revision 
+Why Hashing  ?
+
+Hashing is a technique to make things(CRUD , searching) more efficient by effectively narrowing down the search to a particular bucket/bin
+
+What is hashing?
+
+Hashing means using some function or algorithm to map object data to some representative integer value.
+
+This  hash code (or simply hash) can then be used as a way to narrow down our search when looking for the item in the hash-based data structure (eg : HashSet,LinkedHashSet,HashMap,LinkedHashMap,Hashtable...)
+
+If you want to add elements(refereneces) in hashing based data structure, which contract to be followed between equals n hashCode ?
+
+Mandatory part of the contract : Equal objects MUST produce SAME hashcode values
+
+Optional BUT Recommended part of the contract to ensure O(1) : Un Equal objects SHOULD produce DIFFERENT hashcode values
+
+
+HOW ?
+1. Identify PK n override equals
+2. Use same fields (PK) in generating hashcode.
+Hint : Use prime nos in generation of hash codes
+ eg : String , Wrapper class(Integer,Double....) , Date , LocalDate....
+: Have already followed contract(both of the branches)
+
+
+Objective : Save bank account details in a suitable D.S , for ensuring no dups , const time perf for all CRUD ops. 
+
+HashMap<K,V>
+
+
+BankAccount : acctNo(int) , customer name , type(enum) , creationDate(java.time.LocalDate) , balance(double)
+PK : acct no
+K : Integer
+
+V : BankAccount
+
+HashMap<Integer,BankAccount>
+
+3.1Store a/c details in a suitable map to ensure const time performance for : put/get/remove...
+What will the type of the map ? : HashMap<K,V>
+K : Integer
+V : BankAccount
+
+HashMap<Integer,BankAccount> accts=new HM<>();//size=0    init capa=16   L.F=0.75
+
+3.2  Create a populated map with sample data.
+
+
+3.3 Create A/C
+i/p : acct no
+chk if it exists --- yes --throw custom exc
+accept remaining details n add a/c info to the map
+
+3.4 Display details of all accts
+
+3.6  Get A/C summary
+i/p : acct number
+
+3.7 Funds Transfer
+i/p : src a/c no  dest a/c no , amt
+
+3.8 Close A/C
+i/p : a/c no
+
+3.9 Display a/c holder's name of the specified type of the account.
+i/p :  ac type
+Steps : Ask yourself --- searching -- key based or value based ---value based
+Can it be solved using Map API ? NO
+Soln : Convert the Map ---> Collection view (keySet | values | entrySet)  ---values
+--is Collection Iterable --yes --attach for-each --filter the elems as per a/c type. 
+
+3.10 Display balance of a/cs created between specific dates
+i/p :  begin end date
+
+
+4. Java 8 Date/Time related APIs
+Java 8 New Features 
+java.time : new package is introduced in Java 8
+LocalDate : Date (immutable)(yr-mon-day)  : inherently thrd safe.
+API 
+1. public static LocalDate now()
+Obtains the current date from the system clock in the default time-zone.
+eg : LocalDate d1=LocalDate.now();
+LocalTime : Time (immutable)(hr-min-sec)  : inherently thrd safe.
+LocalDateTime : Date n Time :  inherently thrd safe.
+eg : sop("curnt date "+now());
+2. public static LocalDate of(int year,int month,int dayOfMonth)
+Obtains an instance of LocalDate from a year, month and day.
+eg : ?????
+3. public static LocalDate parse(CharSequence text)
+Obtains an instance of LocalDate from a text string such as 2007-12-03.
+eg : LocalDate dt=LocalDate.parse(sc.next());//0 based dates
+4. Methods :
+isBefore,isAfter,isEqual
+3. Can you change default Date format ? : YES
+
+6. Computing Age : Lab work
+-------------------------------------------
+
+More Generic syntax
+Refer to : generics sequence
+1. Refer to generic methods
+
+2. 
+Objective : Create a class GenericUtils , as a non generic class
+1. Add a static method to print elements of any numeric type of the List.
+
+
+Test cases :
+printList : List<Integer> , List<Double> , List<Float>........
+
+Can you find out any common super class in all of above classes ? 
+Name the super class of all numeric warappers : java.lang.Number
+eg : public static void printNumberList(List<Number> numbers)
+{
+ ......
+}
+Try it out !
+Problem observed : javac err
+
+
+What does it mean ?
+Does inheritance in generics work in the same manner as learnt earlier : NO
+
+Wild card in generics comes to the rescue!
+Enter "?"
+What is it :  ? 
+It's a wild card in generic syntax. Can be replaced by ANY type.
+Represents any unknown type.
+
+
+In above situation , Can "?"  be replaced by a parameterized type T : YES
+BUT ? syntax is easier to follow (readability is better)
+
+
+
+3. Add a static method to compute salary of Collection of emps / mgr/ salesmgr / tempworker.
+Refer to ready code.
+eg :public static void  invokeComputeSalary(Collection<?> coll) {...}
+Test cases : AL<Emp> , Vector<Worker> , LinkedList<Mgr>, HS<Mgr> , TS<SalesMgr>....
+
+Can you use ? (un bounded wild card ) for this :  NO
+Check it out...
+Solution : Bounded wild card 
+
+
+More Generic syntax :
+? : wild card in generic syntax (it can be replaced by ANY type) : un bounded wild card
+extends : Represents upper bound in generics
+super : Represents lower bound in generics
+? extends E : ANY type E or its sub type 
+? super E : E or its super type
+eg : ? extends Emp => Emp or it's sub type(Mgr|Worker.....)
+? super Mgr => Mgr or it's super type (Emp | Object)
+
+What will you use in above case ? 
+
+
+Solve this
+Refer to LinkedList ctor
+public LinkedList​(Collection<? extends E> c)
+Q : If you want to create populated LL of Mgr , which of the follow. is legal 
+Meaning : You can created a populated LL of Mgr from ANY Collection(AL,LL,Vector,HS,LHS,TS) of ANY generic type of Mgr or it's sub type
+
+1. AL<Emp>
+2. LL<Mgr>
+3. Vector<SalesMgr>
+4. HS<Worker>
+5. LHS<TempWorker>
+6. TS<RnDMgr>
+7. HM<Integer,Emp> 
+Ans : 2 , 3 ,6
+
+--------------------Pending------------------------
+
+
+
+
+
+
+1. Refer to Fruits hierarchy
+(<ready_code>\ for generics)
+
+2. Given 	
+ArrayList<Apple> basket1 = new ArrayList<>();
+Q.  What all will you be able to add in this basket  ? 
+1. Fruit
+2. Object
+3. Mango
+4. Apple 
+5. KashmiriApple
+6. Alphonso
+Ans :
+
+3. Given 	
+ArrayList<Fruit> basket1 = new ArrayList<>();
+Q.  What all will you be able to add in this basket  ? 
+1. Fruit
+2. Object
+3. Mango
+4. Apple 
+5. KashmiriApple
+6. Alphonso
+Ans :  
+
+4. Given 	
+ArrayList<Alphonso> basket1 = new ArrayList<>();
+Q.  What all will you be able to add in this basket  ? 
+1. Fruit
+2. Object
+3. Mango
+4. Apple 
+5. KashmiriApple
+6. Alphonso
+Ans : 
+
+5. Write a method to display names of the fruits from List of ANY fruits
+    (i.e it can be List of Apples / Mangoes / Alphonsos....)
+
+5.1 Will this work ?
+public static void getFruitNames(List<Fruit> basket) {
+ for (Fruit f : basket)
+  System.out.println(f.getName());
+}
+Tester : 
+ArrayList<Apple> basket1 = new ArrayList<>();		
+basket1.add(new Apple("apple1"));
+basket1.add(new Apple("apple2"));
+basket1.add(new Apple("apple3"));
+basket1.add(new Apple("apple4"));
+System.out.println("Apple basket : ");
+getFruitNames(basket1); //?????
+
+
+
+Reason : Apple IS-A Fruit (i.e they are compatible!) BUT List<Fruit> IS NOT A super type of List<Apple> ...
+Above is a non - generic method , since it's : List<Fruit> , this is called in-variance
+
+5.2 Any solution ?
+Ask yourself : In this case , are you going to put (add) fruits in the basket , i.e acting as the consumer or are you going to get the fruits from your basket , i.e acting as producer/supplier ? : Producer / Supplier
+
+PECS : Producer extends Consumer super
+
+
+Modify the method accordingly.
+
+public static void getFruitNames(List<? extends Fruit> basket) {
+ for (Fruit f : basket)
+  System.out.println(f.getName());
+}
+Tester : 
+ArrayList<Apple> basket1 = new ArrayList<>();		
+basket1.add(new Apple("apple1"));
+basket1.add(new Apple("apple2"));
+basket1.add(new Apple("apple3"));
+basket1.add(new Apple("apple4"));
+System.out.println("Apple basket : ");
+getFruitNames(basket1);//no javac err ! , same goes for Mango's basket , Alphonso ....
+
+? extends Fruit => The type of the List can be : Fruit or it's subtype (eg : Apple,Mango.....)
+Know as co -variance.
+
+6. Will you be able to add any fruit in  the above method ??? 
+public static void getFruitNames(List<? extends Fruit> basket) {
+ for (Fruit f : basket)
+  System.out.println(f.getName());
+ basket.add(new Fruit(...));
+  basket.add(new Mango(...));
+ basket.add(new Apple(...));
+ basket.add(new KashmiriApple(...));
+ basket.add(new Object()); //?????
+}
+
+
+
+Why it doesn't allow you to add a fruit ?
+Q. What is it that you are allowed to pass to this method(i.e look at the method arg.) : List of Fruit or any of it's subtype . Since Fruit IS NOT a Mango/Apple ...javac err
+
+Why it doesn't allow you to add an Apple ? 
+Q. What is it that you are allowed to pass to this method? (i.e look at the method arg.)
+List of Fruit or any of it's subtype .So if u are having Mango Basket , how can compiler allow you to add an Apple !!!!!!!!!!
+
+Details :
+ With the extends keyword, Java compiler knows that this list could contain any subtype of Fruit class and it does not know which kind since there can be many subtypes of it. Hence compiler cannot erase type to a definite one. So, to preserve the type-safety, it does not allow to insert any kind of items to it.
+But, when you get an item from it, the list knows and guarantees that every item in the list is a sub-type of Fruit , because it is written as any type extends from Fruit . So it can surely produce a type of Fruit , out of the list.
+So, from the list perspective, it acts as a producer to others. You can get items from it (list produces), but you can’t insert into it. In Java world, it is called covariance.
+
+7. Can you write a method , to add Mango to the basket?
+
+Ask yourself : In this case , are you going to put (add) mango in the basket , i.e acting as the consumer or are you going to get the mango from your basket , i.e acting as producer ? : Consumer
+
+public static void addMango(List<? super Mango> mangoBasket , Mango m) {
+		basket.add(m); //	
+             basket.add(new Alphonso());//
+basket.add(new Apple());//
+basket.add(new Fruit());//
+basket.add(new Object());//
+      Object/Fruit/Mango/Apple/KA/Alphonso m1  =basket.get(0);//legal : ONLY Object
+	
+}
+? super Mango => Mango or it's super type (Fruit or Object)
+
+What will happen ?
+ArrayList<Mango> basket1 = new ArrayList<>();
+addMango(basket1, new Mango("mango1"));//no err !
+
+		
+ArrayList<Fruit> basket2 = new ArrayList<>();
+addMango(basket2, new Mango("mango2"));//no err !
+
+ArrayList<Alphonso> basket3 = new ArrayList<>();
+addMango(basket3, new Mango("mango3"));//javac err
+
+If you declare the type parameter using super keyword, then Java compiler knows that the basket variable contains references to any supertype of Mango class. But again, it does not know which supertype is. Any subtype can be inserted into a collection defined with supertype. Therefore, you can add any subtype of Mango into this list, but not superclasses Fruit, Object...
+Since the list does not know which kind of supertypes it could contain, Java will return only an Object type to assure type safety when you read from the list, which is not useful at all. Returns Object type because it is the root of every class. If you are reading from it, you have to know the type of the instance when accessing it. If you don’t know it, you can’t consume it.
+This is called consumer behavior, because, from the list perspective, it allows to add items to it (list consumes), but not useful in type-safety reading (producing).
+Known as Contra Variance.
+

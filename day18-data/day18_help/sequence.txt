@@ -1,0 +1,218 @@
+Todays's topics 
+Continue with I/O Programming
+
+Revise I/O
+Which are  the packages for device handling  ?  java.io n java.nio
+java.io : which type of methods ? read n write 
+java.io API Blocking or non blocking ? Blocking (i.e it causes the blocking of the invoker thread till read / write op. is complete)
+
+In case or read/write errors : IOException --checked
+
+java.io Consists  of : I/O streams
+What is a stream ? : data transfer medium (bytes/chars)
+Devices : console(stdin / stdout : System.in : InputStream  / System.out : PrintStream)
+File : File handling streams : FIS , FOS , FR , FW
+Pipe : pipe handling streams : PipedInputStream , POS,PR,PW
+Socket : socket strms .....can attch only bin streams --SIS(Socket.getInputStream()) , SOS (Socket.getOutputStream())
+Memory based strms : ByteArrayInputStream , BOS ....
+
+What will you use ?
+To read data from a data src ----> Java app : input stream 
+To write data from a Java app ----> data sink  : output stream
+
+3 different categories of streams --- 
+node streams : device handling streams (meant for abstracting actual device handling from the prog)
+platform independent) : un buffered strms
+eg : FIS, FOS , FR ,FW , PIS,POS,PR,PW...., SIS : device specific
+Mandatory
+
+buffering streams :  in case large data transfer : independent of the device
+eg : BIS(InputStream in),BR(Reader r),BOS(OutputStream out),BW(Writer w),PW(Writer w)
+
+Filtering / conversion streams : independent of the device
+To convert binary data (bytes) ---> prim types / objects
+eg : DIS,DOS,OOS,OIS...
+
+Which are 2 types of streams in java.io ?
+1. Byte oriented strms (binary) : D.T. U : byte / byte[]
+2. char oriented strms : D.T U. : char / char[]
+
+
+Which are 4 abstract super classes ? : InputStream , OutputStream , Reader , Writer 
+
+File Handling concrete sub Classes ? FIS, FOS , FR ,FW
+Buffering related concrete sub Classes strms : BIS(InputStream in),BR(Reader r),BOS(OutputStream out),BW(Writer w),PW(Writer w)
+
+Objectives : 
+1. How will you copy text files  using buffer?
+1.1 Chain of I/O streams for data read
+Java App <-----   BR <----FR<----- Src Text File
+Java Code : BR br=new BR(new FR(name));
+1.2 Chain of I/O streams for data write
+Java App ---> PW ---> FW  ---> dest text file
+Java Code : PW pw=new PW(new FW(name));
+3 triggers for BW to send data from buffer --> next node : buf full , flush or close
+4 triggers for PW to send data from buffer --> next node : buf full , flush or close , auto flush (flush upon new line)
+
+Methods : readLine : String (Imperative or Declarative Approach ?) : Imperative --while(...) sop(line);
+
+
+
+Declarative Approach : w/o using any loops (i.e just specify the action to be taken w/o specifying the imple steps)
+
+API of BR : public Stream<String> lines()
+
+Meaning : 
+java.util.stream.Stream : i/f => sequence of elems : to which one can apply pipeline of ops (eg : forEach,filter,map,sorted,collect, sum,average....)
+pkg : java.util.stream : Java 8 added
+
+
+
+3. Collection n I/O
+
+Start with a populated Map of products. 
+Sort it as per the category n desc order of price n collect the result into a List
+Save these details in a text file , in a buffered manner.
+
+Steps
+3.1 Core classes
+3.2 custom excs : optional
+3.3 validation rules  : optional
+3.4 Collection utils : i/f 
+3.5 IOUtils : i/f 
+3.6 Tester
+
+-----------------------------------
+
+Enter Binary Streams for file handling
+Which node streams ? FIS , FOS
+Buffering : BIS , BOS
+
+
+Objective :Write Java App to store product details(map) in a binary file , in a buffered manner.
+Java App --->BOS --->FOS--->Bin File
+BOS out=new BOS(new FOS(fileName));
+
+Need of filtering/conversion streams?
+In absence of the conversion strms : prog has to perform the conversion from prim type /strings ---> binary
+Instead use : Conversion streams : DOS
+
+Chain : 
+Java App ----->DOS ---> bytes(bin strm) ---> BOS ---> FOS--->BIn File
+DOS out=new DOS(new BOS(new FOS(fileName)))
+
+Design Steps 
+1. core classes
+2. CollectionUtils
+3. IOUtils
+3.1  void  storeProductDetails(map, fileName) throws IOExc.
+{....}
+
+4.Tester 
+4.1 Scanner : prompt user for data file name
+4.2 sample data
+4.3 call storeData to write product details
+
+
+Objective : Write Java App to  retrieve product details from bin file n display it .
+
+Which  conversion strm ? : DataInputStream implements DataInput i/f
+Ctor
+DataInputStream (InputStream in)
+Methods :
+public int readInt() throws IOExc
+public double readDouble() throws IOExc
+public String readUTF() throws IOExc
+public boolean readBoolean() throws IOExc
+.....
+
+
+Before attaching I/O streams , how to validate if the file exists , regular file , read permission
+API of java.io.File class
+Methods
+exists, isFile , canRead
+
+In case of successful validations --attach i/o strms n read data.
+
+Is there any easier or more advanced solution ? YES
+
+Enter Object streams
+serialization n de serialization
+Objective 
+Get populated HashMap of Products. Save these product details into bin file
+Restore these details from binary file.
+Observe problems n solve the same.
+
+What is Serialization ? : Conversion of state of the object(=non static n non transient data memebrs) ---> binary stream
+
+What is converted into binary stream ? : state of the object + metadata info (Magic no , serial format no,F.Q cls name , class desc...)
+
+Serializer Class : java.io.ObjectOutoutStream
+I/fs implemented : DataOutput , ObjectOutput
+
+Constructor :ObjectOutputStream(OutputStream out)
+out : dest bin o/p stream
+
+Methods : writeInt,writeBoolean....,writeUTF,+ public void writeObject(Object o)
+
+chain of I/O streams for ser.  strm , to be stored in bin file
+Java App --->OOS --->BOS -->  FOS  --->Bin File
+
+chain of I/O streams for ser.  strm , to be uploaded from clnt --> server 
+In clnt side app : 
+Java App --->OOS --->BOS -->  SOS (Socket : getOutputStream()) --->Socket : end point of communication 
+
+eg : List<Product> products=new ArrayList<>();
+//added 10 products in the list
+//Java App --->OOS --->BOS -->  FOS  --->Bin File
+try(OOS out=new OOS(new BOS(new FOS(fileName)))) {
+out.writeObject(products);
+}
+
+What will happen if Product is NOT Serializable ? : JVM throws NotSerializableException : aborts the ser.
+
+
+At the time of serialization(@ run time) , JVM will check serializability of the ENTIRE object graph --
+
+How ?JVM  checks if the class of that object has imple. Serializable i/f (run time marker)
+YES --continues with the conversion
+If JVM comes across any object --which has not imple Serializable i/f : aborts ser. --throws java.io.NotSerializableExc. 
+
+What is de-serialization ? : re construction of the entire object graph from binary stream(FIS,PIS,SIS...)
+
+What are the pre requisites of de-serialization ?
+1. Supply(share) .class files of User defined types(eg : Customer, Order,Custom Exc,Category...) : in the run time class path => behavior
+If not found : java.lang.ClassNotFoundException
+
+2.For  JVM to create instance/s in the heap : provide .ser file (=metadata + state)
+
+Which is best way of sharing dependencies ? Using JAR files
+HOW ? : cmd line tool : jar / IDE
+
+Class used for de-ser : java.io.ObjectInputStream
+Constructor : ObjectInputStream(InputStream in)
+I/Fs : DataInput , ObjectInput
+Methods : readInt,readFloat.....readUTF + public Object readObject() throws ClassNotFoundException,
+InvalidClassException , IOException
+
+chain of I/O streams
+Java App <---- OIS <---- FIS <----BIn File(.ser)
+
+Objectives 
+1. JAR file creation n adding this dependency in de-serial project
+-----------------------Pending----------------------
+
+2. transient keyword
+Suppose application should not store product's manufacturing date , BUT wants to save all other details . How will you manage it ?
+3. What's the observation n conclusion ?
+Serial version unique id 
+
+Objective :
+Create Java app for 
+1. Restore products(map) from bin file : de -serial
+for 1st time : no bin file : rets populated map  with sample data, o.w ret restored map from bin file
+2. Options 
+2.1 Update product price
+2.2 Display sorted products as per date.
+2.3 Remove product
+2.4 Exit : store products : serial

@@ -1,0 +1,247 @@
+Revision
+Java 8 new features
+Functional programming in Java 
+Java 8 streams (Functional streams)
+
+
+1. Refer to Fruits hierarchy
+(<ready_code>\ for generics)
+
+2. Given 	
+ArrayList<Apple> basket1 = new ArrayList<>();
+Q.  What all will you be able to add in this basket  ? 
+1. Fruit
+2. Object
+3. Mango
+4. Apple 
+5. KashmiriApple
+6. Alphonso
+Ans : 4 ,5
+
+3. Given 	
+ArrayList<Fruit> basket1 = new ArrayList<>();
+Q.  What all will you be able to add in this basket  ? 
+1. Fruit
+2. Object
+3. Mango
+4. Apple 
+5. KashmiriApple
+6. Alphonso
+Ans : 1,3,4,5,6
+
+4. Given 	
+ArrayList<Alphonso> basket1 = new ArrayList<>();
+Q.  What all will you be able to add in this basket  ? 
+1. Fruit
+2. Object
+3. Mango
+4. Apple 
+5. KashmiriApple
+6. Alphonso
+Ans : 6
+
+5. Write a method to display names of the fruits from List of ANY fruits
+    (i.e it can be List of Apples / Mangoes / Alphonsos....)
+
+
+
+
+5.1 Will this work ?
+public static void getFruitNames(List<Fruit> basket) {
+ for (Fruit f : basket)
+  System.out.println(f.getName());
+}
+Tester : 
+ArrayList<Apple> basket1 = new ArrayList<>();		
+basket1.add(new Apple("apple1"));
+basket1.add(new Apple("apple2"));
+basket1.add(new Apple("apple3"));
+basket1.add(new Apple("apple4"));
+System.out.println("Apple basket : ");
+getFruitNames(basket1); //javac err
+
+
+
+
+
+Reason : Apple IS-A Fruit (i.e they are compatible!) BUT List<Fruit> IS NOT A super type of List<Apple> ...
+Above is a non - generic method , since it's : List<Fruit> , this is called in-variance (i.e un changeable)
+
+5.2 Any solution ?
+Ask yourself : In this case , are you going to put (add) fruits in the basket , i.e acting as the consumer or are you going to get the fruits from your basket , i.e acting as producer/supplier ? : Producer / Supplier
+
+PECS : Producer extends Consumer super
+
+
+Modify the method accordingly.
+
+?????
+Tester : 
+ArrayList<Apple> basket1 = new ArrayList<>();		
+basket1.add(new Apple("apple1"));
+basket1.add(new Apple("apple2"));
+basket1.add(new Apple("apple3"));
+basket1.add(new Apple("apple4"));
+System.out.println("Apple basket : ");
+getFruitNames(basket1);//no javac err ! , same goes for Mango's basket , Alphonso ....
+
+? extends Fruit => The type of the List can be : Fruit or it's subtype (eg : Apple,Mango.....)
+Known as co -variance. (narrowing the type of the reference)
+
+6. Will you be able to add any fruit in  the above method ??? NO
+public static void getFruitNames(List<? extends Fruit> basket) {
+ for (Fruit f : basket)
+  System.out.println(f.getName());
+ basket.add(new Fruit(...));
+  basket.add(new Mango(...));
+ basket.add(new Apple(...));
+ basket.add(new KashmiriApple(...));
+ basket.add(new Object()); 
+}
+
+
+
+Why it doesn't allow you to add a fruit ?
+Q. What is it that you are allowed to pass to this method(i.e look at the method arg.) : List of Fruit or any of it's subtype .So if u are having Apple Basket ,  Since Fruit IS NOT a Apple ...javac err
+
+Why it doesn't allow you to add an Apple ? 
+Q. What is it that you are allowed to pass to this method? (i.e look at the method arg.)
+List of Fruit or any of it's subtype .So if u are having Mango Basket , how can compiler allow you to add an Apple !!!!!!!!!!
+
+Details :
+ With the extends keyword, Java compiler knows that this list could contain any subtype of Fruit class and it does not know which kind since there can be many subtypes of it. Hence compiler cannot erase type to a definite one. So, to preserve the type-safety, it does not allow to insert any kind of items to it.
+But, when you get an item from it, the list knows and guarantees that every item in the list is a sub-type of Fruit , because it is written as any type extends from Fruit . So it can surely produce a type of Fruit , out of the list.
+So, from the list perspective, it acts as a producer to others. You can get items from it (list produces), but you can’t insert into it. In Java world, it is called covariance.
+
+7. Can you write a method , to add Mango to the basket?
+
+Ask yourself : In this case , are you going to put (add) mango in the basket , i.e acting as the consumer or are you going to get the mango from your basket , i.e acting as producer ? : Consumer
+
+public static void addMango(List<? super Mango> mangoBasket , Mango m) {
+		basket.add(m); 
+             basket.add(new Alphonso());
+basket.add(new Apple());
+basket.add(new Fruit());
+basket.add(new Object());
+//What about getting ? 
+      Object/Fruit/Mango/Apple/KA/Alphonso m1  =basket.get(0);//legal : ONLY Object
+	
+}
+? super Mango => Mango or it's super type (Fruit or Object)
+
+What will happen ?
+ArrayList<Mango> basket1 = new ArrayList<>();
+addMango(basket1, new Mango("mango1"));
+
+		
+ArrayList<Fruit> basket2 = new ArrayList<>();
+addMango(basket2, new Mango("mango2"));
+
+ArrayList<Alphonso> basket3 = new ArrayList<>();
+addMango(basket3, new Alphonso("Alphonso1"));
+
+If you declare the type parameter using super keyword, then Java compiler knows that the basket variable contains references to any supertype of Mango class. But again, it does not know which supertype is. Any subtype can be inserted into a collection defined with supertype. Therefore, you can add Mango or any subtype of Mango into this list, but not superclasses Fruit, Object...
+Since the list does not know which kind of supertypes it could contain, Java will return only an Object type to assure type safety when you read from the list, which is not useful at all. Returns Object type because it is the root of every class. If you are reading from it, you have to know the type of the instance when accessing it. If you don’t know it, you can’t consume it.
+This is called consumer behavior, because, from the list perspective, it allows to add items to it (list consumes), but not useful in type-safety reading (producing).
+Known as Contra Variance.
+
+Refer to Collections class API
+public static <T> boolean addAll​(Collection<? super T> c, T... elements)
+If you replace T ---Mgr
+What all generic types will you be able add to such a Collection ?
+1. Object
+2. Emp 
+3. Mgr
+4. Worker
+5. TempWorker
+6. SalesMgr
+Ans : 3 , 6
+
+
+public static <T> boolean addAll​(Collection<? super T> c, T... elements)
+If you replace T ---Mgr
+Which of the following you will be able to pass to this method ?
+1. AL<Mgr>
+2. Vector<Emp>
+3. LinkedList<SalesMgr>
+4. HS<Emp>
+5. TS<Object>
+6. AL<Worker>
+7. LL<TempWorker>
+8. HM<Integer,Emp> 
+Ans : 1 , 2 , 4 , 5  
+
+Refer to Collections class API
+public static <T> void copy​(List<? super T> dest, List<? extends T> src)
+copying refs from src ---> dest
+src : PRODUCER --- extends
+dest : CONSUMER --super
+
+
+T : Worker 
+1. src : AL<Worker> , dest : LL <Emp>  : no javac err
+2. src : AL<TempWorker> , dest : LL <Worker>  : no javac err
+3. src : LL <Worker> dest : AL<TempWorker> : javac err
+
+
+
+8. Lab assignment
+Write a method to find max number from List of any numbers (Integer / Float / Double ...) n return it to the caller.
+
+-----------------------------------
+Java 8 New Features 
+default keyword 
+static methods in i/f 
+FP 
+
+
+
+
+
+
+Refer to "regarding lambdas"
+
+Objectives
+
+1. Create your own functional interface n use it in lambda expression
+
+eg : Perform ANY arithmetic operation on 2 double values & return the result
+eg --add/multiply/subtract/divide....
+
+1.1 Create i/f : SAM => Functional i/f
+eg : Computable
+double compute(double a,double b);
+
+1.2 Create an i/f : ComputationUtils :  to add a static method
+to return  result of  ANY operation performed on 2 double operands
+eg : static double performAnyArithOperation(double a1, double b1,Computable op)
+{
+  return op.compute(a1,b1);
+}
+
+1.3 Create a Tester n use it.
+
+1.4 Explore Existing higher order functions/methods
+
+1. Iterable : forEach 
+
+2. Collection : removeIf
+
+3. Map : forEach
+
+4. Sorting : custom ordering
+
+5 Function literal
+
+
+2. Using above API(higher order funcs) , can you chain multiple operations like sorting & displaying the sorted data ? NO
+OR
+Filter the elements n display filtered list. 
+Objective : Accept product category from user
+remove all products from specified category n display remaining list
+
+3. Enter Java 8 Streams (Functional Streams)
+3.1 Refer to <streams> : diagrams
+collections vs streams n streams basics
+3.2 Refer to "streams_sequence"
+	

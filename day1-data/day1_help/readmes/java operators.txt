@@ -1,0 +1,156 @@
+Operators in Java
+
+
+Arithmetic Operators
+Unary Operators
+Assignment Operator
+Relational Operators
+Logical Operators
+Ternary Operator
+Bitwise Operators
+Shift Operators
+
+ 
+
+Arithmetic Operators: They are used to perform simple arithmetic operations on primitive data types. 
+* : Multiplication
+/ : Division
+% : Modulo
++ : Addition
+– : Subtraction
+
+Unary Operators: Unary operators need only one operand. They are used to increment, decrement or negate a value. 
+– :Unary minus, used for negating the values.
+eg : int a=20;
+int b=-a;
+
+++ :Increment operator, used for incrementing the value by 1. There are two varieties of increment operator. 
+Post-Increment : Value is first used for computing the result and then incremented.
+Pre-Increment : Value is incremented first and then result is computed.
+eg : int n1=10;
+int n2=n1++;
+System.out.println(n2+" "+n1);
+What will be output ?
+
+— : Decrement operator, used for decrementing the value by 1. There are two varieties of decrement operator. 
+Post-decrement : Value is first used for computing the result and then decremented.
+Pre-Decrement : Value is decremented first and then result is computed.
+
+! : Logical not operator, used for inverting a boolean value.
+eg : 
+boolean jobDone=true;
+boolean flag=!jobDone;
+System.out.println(flag);
+
+
+Assignment Operator : ‘=’ Assignment operator is used to assign a value to any variable. It has a right to left associativity. 
+ 
+eg : int a=200;
+
+In many cases assignment operator can be combined with other operators to build a shorter version of statement called Compound Statement. 
+
+eg : int a=100;
+a += 10;
+System.out.println(a);
+
++=, for adding left operand with right operand and then assigning it to variable on the left.
+-=, for subtracting left operand with right operand and then assigning it to variable on the left.
+*=, for multiplying left operand with right operand and then assigning it to variable on the left.
+/=, for dividing left operand with right operand and then assigning it to variable on the left.
+%=, for assigning modulo of left operand with right operand and then assigning it to variable on the left.
+
+
+Relational Operators : These operators are used to check for relations like equality, greater than, less than. They return boolean result after the comparison and are  used in looping statements and conditional if else statements. 
+
+==, Equal to : returns true if left hand side is equal to right hand side.
+!=, Not Equal to : returns true if left hand side is not equal to right hand side.
+<, less than : returns true if left hand side is less than right hand side.
+<=, less than or equal to : returns true if left hand side is less than or equal to right hand side.
+>, Greater than : returns true if left hand side is greater than right hand side.
+>=, Greater than or equal to: returns true if left hand side is greater than or equal to right hand side.
+
+
+Logical Operators : These operators are used to perform “logical AND” and “logical OR” operation, i.e. the function similar to AND gate and OR gate in digital electronics. One thing to keep in mind is the second condition is not evaluated if the first one is false, i.e. it has a short-circuiting effect. Used extensively to test for several conditions for making a decision. 
+
+Conditional operators are-
+&&, Logical AND : returns true when both conditions are true.
+||, Logical OR : returns true if at least one condition is true.
+
+eg :
+int data=100;
+int data2=50;
+if(data > 60 && data2 < 100)
+ System.out.println("test performed...");
+else 
+ System.out.println("test not performed...");
+
+
+Ternary operator : Ternary operator is a shorthand version of if-else statement. It has three operands and hence the name ternary. General format is- 
+ 
+condition ? if true : if false
+The above statement means that if the condition evaluates to true, then execute the statements after the ‘?’ else execute the statements after the ‘:’. 
+ 
+eg : 
+int data=100;
+System.out.println(data>100?"Yes":"No");
+
+ 
+
+Bitwise Operators : These operators are used to perform manipulation of individual bits of a number. They can be used with any of the integer types. They are used when performing update and query operations of Binary indexed tree. 
+&, Bitwise AND operator: returns bit by bit AND of input values.
+|, Bitwise OR operator: returns bit by bit OR of input values.
+^, Bitwise XOR operator: returns bit by bit XOR of input values.
+~, Bitwise Complement Operator: This is a unary operator which returns the one’s compliment representation of the input value, i.e. with all bits inversed.
+
+eg :
+String binary[] = {
+			      "0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111",
+			      "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"
+			    };
+			    int a = 3; // 0 + 2 + 1 or 0011 in binary
+			    int b = 6; // 4 + 2 + 0 or 0110 in binary
+			    int c = a | b;
+			    int d = a & b;
+			    int e = a ^ b;
+			  
+
+			    System.out.println("        a = " + binary[a]);
+			    System.out.println("        b = " + binary[b]);
+			    System.out.println("      a|b = " + binary[c]);
+			    System.out.println("      a&b = " + binary[d]);
+			    System.out.println("      a^b = " + binary[e]);
+			   
+			  }
+
+
+Shift Operators : These operators are used to shift the bits of a number left or right thereby multiplying or dividing the number by two respectively. They can be used when we have to multiply or divide a number by two. 
+
+<<, Left shift operator: shifts the bits of the number to the left and fills 0 on voids left as a result. Similar effect as of multiplying the number with some power of two.
+eg :
+int a = 25;
+System.out.println(a<<4); //25 * 16 = 400
+a=-25;
+System.out.println(a<<4);//-25 * 16 = -400
+
+
+
+Signed right shift operator
+The signed right shift operator '>>' uses the sign bit to fill the trailing positions. For example, if the number is positive then 0 will be used to fill the trailing positions and if the number is negative then 1 will be used to fill the trailing positions.
+
+Assume if a = 60 and b = -60; now in binary format, they will be as follows −
+
+a = 0000 0000 0000 0000 0000 0000 0011 1100
+b = 1111 1111 1111 1111 1111 1111 1100 0100
+In Java, negative numbers are stored as 2's complement.
+
+Thus a >> 1 = 0000 0000 0000 0000 0000 0000 0001 1110
+And b >> 1 = 1111 1111 1111 1111 1111 1111 1110 0010
+
+Unsigned right shift operator
+The unsigned right shift operator '>>' do not use the sign bit to fill the trailing positions. It always fills the trailing positions by 0s.
+
+Thus a >>> 1 = 0000 0000 0000 0000 0000 0000 0001 1110
+And b >>>  1 = 0111 1111 1111 1111 1111 1111 1110 0010
+
+
+eg : D:\ACTS-2020\java11\test2\src\operators\Tester.java

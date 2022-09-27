@@ -1,0 +1,68 @@
+Day 1
+0. Download n extract today's contents.
+
+1. Please revise today's work , using the "sequence.txt"
+
+2. Go through day1/code : all code samples
+
+3. Solve ready code samples n revise completely.
+Main revision topics  : Java control structures , loops, primitive types , automatic n forced conversions(type casting)
+operators , basics of class programming  , classes , objects , constructor , this keyword.
+(refer to "regarding class n object.txt")
+For unicode : refer to "day1-data\day1_help\readmes\regarding unicode"
+
+4. No hands-on assignment for today.
+
+Day 2
+1. Refer to today's sequence
+refer : day2-data\code without IDE\day2
+n revise packages , access specifiers
+
+2. import day2.1 in your eclipse workspace n revise code with mem pics.
+(refer : whiteboard-mem-pics.png)
+
+DO NOT copy n run below  code in IDE.
+You have to go through the code n answer.
+
+3. Solve Tank assignment along with memory picture.
+
+What will be the output ?
+
+class Tank {
+  private int level;
+  Tank(int l)
+   {
+     level=l;
+   }
+  public void setLevel(int level1)
+  {
+    level=level1;
+  }
+  public int getLevel()
+  {
+    return level;
+  }
+}	
+
+public class Assignment {
+  public static void main(String[] args) {
+    Tank t1 = new Tank(10);
+    Tank t2 = new Tank(20);
+     s.o.p("1: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//10 20
+    t1 = t2;//1st tank obj is marked GC
+    s.o.p("2: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//20 20
+    t1.setLevel(27);
+     s.o.p("3: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//27 27
+    t2.setLevel(t1.getLevel()+10);
+     s.o.p("4: t1.level: " + t1.getLevel() +
+          ", t2.level: " + t2.getLevel());//37 37
+  }
+}
+
+4. What will happen (solve ready code samples )
+day2-data\day2_help\params_passing
+4.1 TestParamPassing1.java
+4.2 TestParamPassing1.java

@@ -1,0 +1,15 @@
+What is Unicode ?
+
+The Unicode-characters are universal characters encoding standard. It represents way different characters can be represented in different documents like text file, web pages etc. 
+
+It is the industry standard designed to consistently and uniquely encode characters used in written languages throughout the world. 
+
+The Unicode standard uses hexadecimal to express a character.
+For example the value 0x0041 represents  A.
+
+The ASCII character set contained limited number of characters. It doesn't have Japanese characters , can't support Devnagari scripts.
+
+The idea behind Unicode was to create a single character set that included every reasonable character in all writing systems in the world. 
+
+The Unicode standard was initially designed using 16 bits to encode characters because the primary machines were 16-bit PCs. When the specification for the Java language was created, the Unicode standard was accepted and the char primitive was defined as a 16-bit data type, with characters in the hexadecimal range from 0x0000 to 0xFFFF.
+

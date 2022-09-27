@@ -1,0 +1,19 @@
+1. byte: The byte data type is an 8-bit signed two's complement integer. It has a minimum value of -128 and a maximum value of 127 (inclusive). --- -2^7 ---- 2^7-1
+2. short: The short data type is a 16-bit signed two's complement integer. It has a minimum value of -32,768 and a maximum value of 32,767 (inclusive).
+-2^15 ---- 2^15-1
+3.int: The int data type is a 32-bit signed two's complement integer. It has a minimum value of -2,147,483,648 and a maximum value of 2,147,483,647 (inclusive).
+4. long: The long data type is a 64-bit signed two's complement integer. It has a minimum value of -9,223,372,036,854,775,808 and a maximum value of 9,223,372,036,854,775,807 (inclusive).
+
+5.float: The float data type is a single-precision 32-bit IEEE 754 floating point.
+Covers a range from 1.40129846432481707e-45 to 3.40282346638528860e+38 (positive or negative). 
+BE careful -- in assigning integer to float & vice versa.
+
+6. double :  8 bytes IEEE 754. Covers a range from 4.94065645841246544e-324d to 1.79769313486231570e+308d (positive or negative). 
+
+7. boolean 
+    Typically 1-bit(as per underlying JVM specification)  May take on the values true and false only.
+    true and false are defined constants of the language. Booleans may not be cast into any other type of variable nor may any other variable be cast into a boolean.
+
+8. char -- unsigned char. --- UTF 16 
+range 0----65535
+

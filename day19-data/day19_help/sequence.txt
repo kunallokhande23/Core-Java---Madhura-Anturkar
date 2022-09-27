@@ -1,0 +1,225 @@
+Today's Topics
+1. Continue with Serialization n de-serialiazation
+1.1 Serial version unique id
+1.2 transient keyword
+
+2. Method overriding n exception handling
+3. Multi threading
+----------------------
+Revise
+What is Serialization ? : Conversion from Java object/s to binary stream
+
+What is converted into binary stream ? : state of java obj + meta data info is added in the bin strm , fot de-serial.
+
+Serializer Class : ObjectOutputStream
+I/fs implemented : AutoCloseable , DataOutput , ObjectOutput
+
+Constructor :ObjectOutputStream(OutputStream out)
+out : dest bin o/p stream
+
+Methods : writeInt,writeBoolean....,writeUTF,+ public void writeObject(Object o)
+
+chain of I/O streams for ser.  strm , to be stored in bin file
+Java App --->OOS : serial --> FOS  --->Bin File
+
+chain of I/O streams for ser.  strm , to be uploaded from clnt --> server 
+In clnt side app : 
+Java App --->OOS --->SOS (Socket.getOutputStream())  --->Socket : end point of communication 
+
+Buffering is OPTIONAL
+
+eg : List<Product> products=new ArrayList<>();
+//added 100000 products in the list
+//Java App --->OOS --->BOS -->  FOS  --->Bin File
+try(OOS out=new OOS(new BOS(new FOS(fileName)))) {
+out.writeObject(products);//ser.
+}
+
+What will happen if Product is NOT Serializable ? : Aborts serialization --throwing exc : java.io.NotSerializableExc
+
+At the time of serialization(@ run time i.e writeObject) , JVM will check serializability of the ENTIRE object graph --
+
+How ?JVM  checks if the class of that object has imple. Serializable i/f (run time marker)
+YES --continues with the conversion
+If JVM comes across any object --which has not imple Serializable i/f : aborts ser. --throws java.io.NotSerializableException 
+ 
+
+What is de-serialization ? : re construction of the entire object graph from binary stream(FIS,PIS,SIS, BIS ...) into Java object heap
+
+What are the pre requisites of de-serialization ?
+1. Supply(share) .class files of User defined types(eg : Customer, Order,Custom Exc,Category...) : in the run time class path => behavior
+If not found : java.lang.ClassNotFoundException
+
+2.For  JVM to create instance/s in the heap : provide .ser file (=metadata + state)
+
+Which is best way of sharing dependencies ? Using JAR files
+HOW ? : cmd line tool : jar / IDE
+
+Class used for de-ser : java.io.ObjectInputStream
+Constructor : ObjectInputStream(InputStream in)
+Important I/Fs : DataInput , ObjectInput,....
+Methods : readInt,readFloat.....readUTF + public Object readObject() throws ClassNotFoundException,
+InvalidClassException , IOException
+
+chain of I/O streams
+Java App <---- OIS <---- FIS <----BIn File(.ser)
+
+Objectives 
+1. JAR file creation n adding this dependency in de-serial project
+2. transient keyword
+Suppose application should not store product's manufacturing date , BUT wants to save all other details . How will you manage it ?
+3. What's the observation n conclusion ?
+Serial version unique id 
+
+Objective :
+Create Java app for 
+1. Restore products(map) from bin file : de -serial
+for 1st time : no bin file : rets populated map  with sample data, o.w ret restored map from bin file
+2. Options 
+2.1 Update product price
+2.2 Remove product
+2.3 Exit : store products : serial
+
+---------------------------------
+
+4. Method overriding n exception handling
+
+Overriding form of the method(in sub class) can't throw any NEW or BROADER CHECKED exceptions.
+
+
+Confirm with examples.
+eg :
+What will happen ?
+1.  package p1;
+class A
+{
+  void show()
+  {
+    sop("1");
+  }
+}
+
+class B extends A
+{
+  @Override
+  void show() throws InterruptedException //javac err !!!!!!!! : since adding NEW Checked Exc
+  {
+    sop("2");
+  }
+}
+
+class C extends A
+{
+  @Override
+  void show() throws NullPointerException //no err : since unchked exc
+  {
+    sop("3");
+  }
+}
+
+In Tester 
+A ref=new B();
+ref.show();
+
+
+2.  package p1;
+class A
+{
+  void show() throws InterruptedException
+  {
+    sop("1");
+  }
+}
+
+class B extends A
+{
+  @Override
+  void show() //no javac err : since u are handling the exc
+  {
+    sop("2");
+  }
+}
+
+3.  package p1;
+class A
+{
+  void show() throws IOException
+  {
+    sop("1");
+  }
+}
+
+class B extends A
+{
+  @Override
+  void show() throws FileNotFoundException //no javac err , since FNFExc is narrower (i.e a sub class) than IOExc
+  {
+    sop("2");
+  }
+}
+4.  package p1;
+class A
+{
+  void show() throws IOException
+  {
+    sop("1");
+  }
+}
+
+class B extends A
+{
+  @Override
+  void show() throws Exception  //javac err : since it throws BROADER checked exc.
+  {
+    sop("2");
+  }
+}
+-------------------------
+5. Enter multi threading
+
+What is multi tasking n why ?
+Process vs Threads
+Refer : Thread state transition diagram
+Refer : Threads API
+
+
+Objectives 
+Creates multiple threads n test concurrency
+1. extends Thread
+
+2. implements Runnable
+
+3. How to ensure no orphan threads ?
+(join)
+
+
+1. sleep n interrupt (with separate class , later use ano inner class to create a thread/later replace it by lambda expression)
+
+2. Consider threads :  t1 & t2 
+t1's run() : t2.join()
+t2's run() : Loop  (indefinitely running) with intermittent sleep
+main waiting for t1 n t2 to finish exec.
+What will happen ? : 
+Fix it!
+
+3. Consider threads :  t1 & t2 
+t1's run() : t2.join()
+t2's run() : Blocked on I/O
+main waiting for t1 n t2 to finish exec.
+What will happen ? : 
+
+
+4. Solve practical requirement based on  (Collection + I/O + Threads)
+
+
+Solve : Create a multi threaded application for saving student details in 2 text files(taken from the Map of students ) : (in student_gpa.txt : sorted by gpa & in student_dob.txt : sorted by dob) using 2 different threads , concurrently!
+(refer to a diag : "assgn-help")
+
+1. CollectionUtils : sorting methods
+2. IOUtils : writeData : text data + buffering
+Chain of I/O streams
+Java app  ------> PW-------->FW ----->Text File(device)
+3. Create child thrds (implements)
+4. main
+
+
